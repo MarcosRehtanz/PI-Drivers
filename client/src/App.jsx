@@ -5,7 +5,9 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
 import { Form } from './pages/Form/Form'
+import { Detail } from './pages/Detail/Detail'
 import { Nav } from './components/Nav/Nav'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,7 +19,7 @@ function App() {
         <Route path='/home' element={ <Home/> }/>
         <Route path='/form' element={ <Form/> } >
         </Route>
-        <Route path='/drivers' element={ <h1>DRIVERS</h1> }/>
+        <Route path='/driver/:id' element={ <Detail/> }/>
       </Routes>
     </>
   )
