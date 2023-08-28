@@ -7,7 +7,9 @@ export const Nav = () => {
 
         <nav>
             <div>
-
+                <Link to='/'>
+                    <img src="/F1.svg" alt="" />
+                </Link>
                 <ul>
                     <Link to='/home'>
                         <li>Home</li>

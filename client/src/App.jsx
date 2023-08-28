@@ -7,6 +7,7 @@ import { Home } from './pages/Home/Home'
 import { Form } from './pages/Form/Form'
 import { Detail } from './pages/Detail/Detail'
 import { Nav } from './components/Nav/Nav'
+import { Landing } from './pages/Landing/Landing'
 
 
 function App() {
@@ -14,10 +15,11 @@ function App() {
 
   return (
     <>
-      <Nav></Nav>
+      <Nav/>
       <Routes>
-        <Route path='/home' element={ <Home/> }/>
-        <Route path='/form' element={ <Form/> } >
+        <Route path='/' Component={Landing} />
+        <Route path='/home' Component={Home} />
+        <Route path='/form' Component={Form} >
         </Route>
         <Route path='/driver/:id' element={ <Detail/> }/>
       </Routes>
