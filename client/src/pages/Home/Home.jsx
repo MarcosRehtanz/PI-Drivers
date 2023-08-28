@@ -1,4 +1,4 @@
-
+import { DriversCards } from "../../components/DriversCards/DriversCards"
 
 export const Home = () => {
 
@@ -6,7 +6,9 @@ export const Home = () => {
     return (
         <div>
             <h1>HOME</h1>
-            <p>This section is the home</p>
+            <p>This section is the home</p><br />
+
+            <DriversCards />
         </div>
     )
 
