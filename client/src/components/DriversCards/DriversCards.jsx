@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { DriverCard } from '../DriverCard/DriverCard'
+import { useSelector } from 'react-redux'
 
 import './DriversCards.css'
 
@@ -10,17 +11,7 @@ export const DriversCards = () => {
     const [selector, setSelector] = useState(1)
     const [drivers, setDrivers] = useState([])
     const [error, setError] = useState('')
-
-    const getDrivers = async () => {
-        try {
-            const { data } = await axios.get('http://localhost:3001/drivers')
-            setDrivers(data)
-            setError('')
-            setPages(Math.ceil(data.length / 9))
-        } catch (error) {
-            setError(error.message)
-        }
-    }
+    const globalStates = useSelector(state => state)
 
     const renderCards = () => {
         const arr = drivers.slice(selector * 9 - 9, selector * 9);
@@ -36,13 +27,17 @@ export const DriversCards = () => {
         })
     }
 
+    
     const handlePage = (page) => {
         setSelector(page)
     }
-
+    
     useEffect(() => {
-        getDrivers()
-    }, [])
+        // // getDrivers()
+        setDrivers(globalStates.filterDrivers)
+        setPages(Math.ceil(globalStates.filterDrivers.length / 9))
+        console.log(globalStates);
+    }, [globalStates.filterDrivers])
 
     return (
         <div id='DriversCards-container'>
