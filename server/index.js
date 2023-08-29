@@ -1,6 +1,6 @@
 const axios = require("axios");
 const server = require("./src/server");
-const { conn, Driver, Team } = require('./src/db.js');
+const { conn, Team } = require('./src/db.js');
 const PORT = 3001;
 
 conn.sync({ force: true }).then(() => {
@@ -10,25 +10,8 @@ conn.sync({ force: true }).then(() => {
 
     const { data } = await axios.get('http://localhost:5000/drivers')
 
-    data.map(async ({ name, description, nationality, image, dob, teams }) => {
-      try {
-        const _ = await Driver.findOrCreate({
-          where: {
-            name: name.forename,
-            surname: name.surname,
-          },
-          defaults: {
-            description: description,
-            nationality: nationality,
-            image: image.url,
-            birthdate: dob,
-          }
-        })
-        
-      } catch (error) {
-        console.log(error.message);
-      }
-
+    data.map(async ({ teams }) => {
+ 
       if (teams) {
         let arr = teams.split(',')
         arr.map(async (t) => {

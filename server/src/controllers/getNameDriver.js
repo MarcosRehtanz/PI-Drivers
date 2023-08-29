@@ -1,4 +1,4 @@
-const { Driver } = require('../db')
+const { Driver, Team } = require('../db')
 
 module.exports = async (req,res) => {
 
@@ -6,12 +6,14 @@ module.exports = async (req,res) => {
 
     try {
         const response = await Driver.findAll({
-            // attributes: ['id', 'name'],
-            where: {
-                name
+            where: { name },
+            include: {
+                model: Team,
+                attributes: ['name'],
+                through: { attributes:[], }
             }
         })
-        res.status(200).send(response)
+        res.status(200).send(response)// teams)
     } catch (error) {
         res.status(500).send({error: error.message})
     }

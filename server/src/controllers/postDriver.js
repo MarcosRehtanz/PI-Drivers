@@ -1,15 +1,23 @@
-const {Driver} = require('../db')
+const { Driver, Team } = require('../db')
 
 module.exports = async (req, res) => {
 
-    const driver = req.body
-    if (!driver.name || !driver.surname || !driver.description || !driver.nationality || !driver.birthdate){
+    const newDriver = req.body
+    if (!newDriver.name || !newDriver.surname || !newDriver.description || !newDriver.nationality || !newDriver.birthdate){
         return res.status(400).send('Información incompleta')
     }
 
+    
     try {
-        const response = await Driver.create(driver)
-        res.status(200).send({message: 'All Correct',response})
+        const driver = await Driver.create(newDriver)
+        
+        let teams = newDriver.teams.split(',')
+        teams.map( async name => {
+            const team = await Team.findOne( { where: {name: name.trim()} } )
+            driver.addTeam(team)
+        } )
+
+        res.status(200).send({message: 'All Correct',driver, })
     } catch (error) {
         res.status(500).send({error: error.message})
     }
