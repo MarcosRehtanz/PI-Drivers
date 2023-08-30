@@ -1,13 +1,18 @@
+import { useDispatch } from "react-redux"
+import { getDriversForName } from "../../redux/actions"
+import { useState } from "react"
 
 
 export const SearchBar = () => {
 
+    const dispatch = useDispatch()
+    const [ name, setName ] = useState()
+
     return(
         <div>
 
-            <input type="checkbox" name="" id="" />
-            <button></button>
-            <button></button>
+            <input value={name} onChange={({target})=>setName(target.value)} type="text" name="name" id="" />
+            <button onClick={()=>dispatch(getDriversForName(name))} >Buscar</button>
 
         </div>
     )

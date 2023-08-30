@@ -2,6 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Form.css'
+import { useDispatch } from 'react-redux'
+import { addDriver, getAllDrivers } from '../../redux/actions'
 
 
 export const Form = () => {
@@ -15,6 +17,9 @@ export const Form = () => {
         description: '',
         teams: '',
     })
+    const [error, setError] = useState({})
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleChange = ({ target }) => {
         setDriver(oldDriver => {
@@ -25,7 +30,6 @@ export const Form = () => {
         })
     }
 
-    const [error, setError] = useState({})
     const validate = () => {
         let err = {}
         if( !driver.name) err.name = 'Campo Obligatorio'
@@ -39,10 +43,9 @@ export const Form = () => {
         setError(()=>err)
     }
 
-    const navigate = useNavigate()
-    const submit = async() => {
+    const submit = () => {
         try {
-            await axios.post('http://localhost:3001/drivers', driver)
+            dispatch(addDriver(driver))
             alert('Suscripción exitosa')
             navigate('/home')
         } catch (error) {

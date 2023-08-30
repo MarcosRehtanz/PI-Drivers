@@ -15,10 +15,26 @@ export const reducers = (state = initialState, action) => {
                 filterDrivers: action.payload,
                 filters: []
             }
+        case 'ADD_DRIVER':
+            return {
+                ...state,
+                allDrivers: [...state.allDrivers, action.payload],
+                filterDrivers: [...state.allDrivers, action.payload],
+                filters: []
+            }
         case 'FILTER':
             return {
                 ...state,
-                filterDrivers: state.allDrivers.filter(driver => driver == action.payload)
+                filterDrivers: state.allDrivers.filter(driver => {
+                    return driver == action.payload
+                }),
+                filter: action.payload
+            }
+        case 'GET_DRIVERS_FOR_NAME':
+            return {
+                ...state,
+                filterDrivers: action.payload,
+                filters: []
             }
         default:
             return {

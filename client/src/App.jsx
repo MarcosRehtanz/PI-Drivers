@@ -17,7 +17,6 @@ function App() {
 
   useEffect(()=>{
     dispatch(getAllDrivers());
-    console.log(allDrivers)
   }, [])
 
   return (

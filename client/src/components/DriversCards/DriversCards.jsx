@@ -15,7 +15,7 @@ export const DriversCards = () => {
 
     const renderCards = () => {
         const arr = drivers.slice(selector * 9 - 9, selector * 9);
-        return arr.map(({ id, name, surname, image }, index) => {
+        return arr.map(({ id, name, surname, image }) => {
 
             return <DriverCard
                 key={id}
@@ -33,10 +33,8 @@ export const DriversCards = () => {
     }
     
     useEffect(() => {
-        // // getDrivers()
         setDrivers(globalStates.filterDrivers)
         setPages(Math.ceil(globalStates.filterDrivers.length / 9))
-        console.log(globalStates);
     }, [globalStates.filterDrivers])
 
     return (
