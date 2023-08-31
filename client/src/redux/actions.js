@@ -57,3 +57,16 @@ export const getDriversForName = (name) => {
         }
     }
 }
+
+export const setFilter = (key, filter) => {
+    return {
+        type: 'FILTER',
+        payload: [key, filter]
+    }
+}
+export const setOrder = (key, order) => {
+    return {
+        type: 'ORDER',
+        payload: [key, order]
+    }
+}

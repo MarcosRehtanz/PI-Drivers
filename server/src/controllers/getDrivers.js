@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
                 nationality: nationality,
                 image: image.url,
                 birthdate: dob,
-                teams: (!teams) ? '' :teams.split(',').map(team=>{return{name:team.trim()}})
+                teams: (!teams) ? [] :teams.split(',').map(team=> team.trim())
             }
         })
         const driversDB = await Driver.findAll( {
@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
                 through: {attributes: [],}
             } 
         })
-        res.status(200).send([...driversAPI, ...driversDB])
+        res.status(200).send([...driversAPI, ...driversDB].sort((a,b)=>a.name.localeCompare(b.name)))
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: error.message })

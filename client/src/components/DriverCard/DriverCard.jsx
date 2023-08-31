@@ -9,7 +9,7 @@ export const DriverCard = ({ id, name, surname, image, teams }) => {
             <Link to={`/driver/${id}`} >
                 <img className='DriverCard-image' src={image} alt="foto" />
                 <p>{name} {surname}</p>
-                { teams ? teams.map(team=><ul><li>{team}</li></ul>) :'' }
+                { teams ? <ul>{teams.map((team,i)=><li key={i}>{team}</li>)}</ul> :'' }
             </Link>
         </div>
 

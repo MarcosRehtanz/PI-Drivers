@@ -11,7 +11,7 @@ export const DriversCards = () => {
     const [selector, setSelector] = useState(1)
     const [drivers, setDrivers] = useState([])
     const [error, setError] = useState('')
-    const globalStates = useSelector(state => state)
+    const filterDrivers = useSelector(state => state.filterDrivers)
 
     const renderCards = () => {
         const arr = drivers.slice(selector * 9 - 9, selector * 9);
@@ -23,7 +23,7 @@ export const DriversCards = () => {
                 name={name}
                 surname={surname}
                 image={image ? image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'}
-                teams={teams.map(team=>team.name)}
+                teams={teams.sort((a,b)=>a.id-b.id)}
             />
         })
     }
@@ -34,9 +34,9 @@ export const DriversCards = () => {
     }
     
     useEffect(() => {
-        setDrivers(globalStates.filterDrivers)
-        setPages(Math.ceil(globalStates.filterDrivers.length / 9))
-    }, [globalStates.filterDrivers])
+        setDrivers(filterDrivers)
+        setPages(Math.ceil(filterDrivers.length / 9))
+    }, [filterDrivers])
 
     return (
         <div id='DriversCards-container'>
