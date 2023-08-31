@@ -1,4 +1,5 @@
 import { DriversCards } from "../../components/DriversCards/DriversCards"
+import { FilterBar } from "../../components/FilterBar/FilterBar"
 
 export const Home = () => {
 
@@ -8,6 +9,7 @@ export const Home = () => {
             <h1>HOME</h1>
             <p>This section is the home</p><br />
 
+            <FilterBar/>
             <DriversCards />
         </div>
     )

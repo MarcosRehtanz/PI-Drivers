@@ -13,15 +13,19 @@ conn.sync({ force: true }).then(() => {
     data.map(async ({ teams }) => {
  
       if (teams) {
-        let arr = teams.split(',')
+
+        let arr = teams.split(',') //* "Mercedes, Jordan ,Jaguar"
+ 
         arr.map(async (t) => {
           try {
+            //* [Mercedes, Jordan ,Jaguar]
             await Team.findOrCreate({
               where: { name: t.trim() }
             })
           } catch (error) {
             console.log(error.message);
           }
+
         })
       }
     })

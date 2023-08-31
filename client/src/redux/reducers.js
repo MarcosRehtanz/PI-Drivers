@@ -2,18 +2,24 @@
 const initialState = {
     allDrivers: [],
     filterDrivers: [],
-    filters: []
+    filters: [],
+    allTeams: [],
 }
 
 export const reducers = (state = initialState, action) => {
 
     switch (action.type) {
+        case 'GET_TEAMS': 
+            return {
+                ...state,
+                allTeams: action.payload,
+            }
         case 'GET_ALL_DRIVERS':
             return {
                 ...state,
                 allDrivers: action.payload, 
                 filterDrivers: action.payload,
-                filters: []
+                filters: [],
             }
         case 'ADD_DRIVER':
             return {

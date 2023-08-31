@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
             where: { name },
             include: {
                 model: Team,
+                as: 'teams',
                 attributes: ['name'],
                 through: { attributes: [], }
             }

@@ -6,17 +6,16 @@ import { Form } from './pages/Form/Form'
 import { Detail } from './pages/Detail/Detail'
 import { Nav } from './components/Nav/Nav'
 import { Landing } from './pages/Landing/Landing'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllDrivers } from './redux/actions'
+import { useDispatch } from 'react-redux'
+import { getAllDrivers, getAllTeams } from './redux/actions'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  const allDrivers = useSelector(state => state.allDrivers)
   const dispatch = useDispatch()
 
   useEffect(()=>{
     dispatch(getAllDrivers());
+    dispatch(getAllTeams())
   }, [])
 
   return (

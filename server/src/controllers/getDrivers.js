@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
         const drivers = await Driver.findAll( {
             include: {
                 model: Team,
+                as: 'teams',
                 attributes: ['name'],
                 through: {attributes: [],}
             } 

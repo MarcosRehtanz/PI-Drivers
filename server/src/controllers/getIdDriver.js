@@ -12,12 +12,13 @@ module.exports = async (req, res) => {
                 where: { id: id },
                 include: {
                     model: Team,
+                    as: 'teams',
                     attributes: ['name'],
                     through: { attributes:[], }
                 }
             })
         } else {
-            const { name, description, nationality, image, dob } = (await axios.get(`http://localhost:5000/drivers/${id}`)).data
+            const { name, description, nationality, image, dob, teams } = (await axios.get(`http://localhost:5000/drivers/${id}`)).data
             
             driver = {
                 name: name.forename,
@@ -32,7 +33,7 @@ module.exports = async (req, res) => {
         res.status(200).send(driver)
     } catch (error) {
         console.log(error.message);
-        res.status(500).send({ error: error.message })
+        res.status(500).send( error.message )
     }
 
 }

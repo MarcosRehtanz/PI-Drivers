@@ -1,6 +1,20 @@
 import axios from 'axios'
 
 
+export const getAllTeams = () => {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.get('http://localhost:3001/teams')
+            dispatch({
+                type: 'GET_TEAMS',
+                payload: data,
+            })
+        } catch (error) {
+            dispatch()
+        }
+    }
+}
+
 export const getAllDrivers = () => {
     return async (dispatch) => {
         try {

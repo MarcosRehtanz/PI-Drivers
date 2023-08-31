@@ -82,7 +82,7 @@ export const Form = () => {
 
                 <div className='input-section' >
                     <label className='label-name' >Imagen</label>
-                    <input value={driver.image} onChange={handleChange} name="image" className='input' type="text" />
+                    <input value={driver.image} onChange={handleChange} name="image" className='input' type="file" />
                 </div>
                 {!error.image ? <br /> : <label className='error-message'>error</label>}
 
