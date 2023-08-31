@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
                 nationality: nationality,
                 image: image.url,
                 birthdate: dob,
-                teams: (!teams) ? [] :teams.split(',').map(team=> team.trim())
+                teams: (!teams) ? [] :teams.split(',').map(team=> {return {name: team.trim()}})
             }
         })
         const driversDB = await Driver.findAll( {

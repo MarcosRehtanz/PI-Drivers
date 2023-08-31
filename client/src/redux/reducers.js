@@ -32,9 +32,11 @@ export const reducers =  (state = initialState, action) => {
             console.log(action.payload);
             return {
                 ...state,
-                filterDrivers: [...state.allDrivers].filter(driver => {
-                    if (action.payload[0] === 'teams')
-                        return driver[action.payload[0]].includes(action.payload[1])
+                filterDrivers: action.payload==='*' ? [...state.allDrivers] : [...state.allDrivers].filter(driver => {
+                    //action.payload);
+                    return driver.teams.some(team =>{
+                        return team.name === action.payload
+                        })
                 }),
                 filter: action.payload
             }

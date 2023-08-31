@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Form.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addDriver, getAllDrivers } from '../../redux/actions'
 
 
@@ -20,6 +20,7 @@ export const Form = () => {
     const [error, setError] = useState({})
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const allTeams = useSelector(state=>state.allTeams)
 
     const handleChange = ({ target }) => {
         setDriver(oldDriver => {
@@ -41,15 +42,21 @@ export const Form = () => {
         if( !driver.teams) err.teams = 'Campo Obligatorio'
 
         setError(()=>err)
+        console.log(Object.keys(error).length);
     }
 
     const submit = () => {
         try {
+            if(Object.keys(error).length>0){
+                alert('Completa todos los campos para continuar el registro')
+                return;
+            }
+            console.log(driver);
             dispatch(addDriver(driver))
             alert('Suscripción exitosa')
             navigate('/home')
-        } catch (error) {
-            alert(error.message)
+        } catch (err) {
+            alert(err.message)
             navigate('/home')
         }
     }
@@ -100,7 +107,9 @@ export const Form = () => {
 
                 <div className='input-section' >
                     <label className='label-name' >Escuderías</label>
-                    <input value={driver.teams} onChange={handleChange} name="teams" className='input' type="text" />
+                    <select onChange={handleChange} name="teams" id="">
+                        {allTeams.map( team => <option value={team.name} >{team.name}</option>)}
+                    </select>
                 </div>
                 {!error.teams ? <br /> : <label className='error-message'>error</label>}
 
