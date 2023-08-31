@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
                 teams: (!teams) ? '' :teams.split(',').map(team=>{return{name:team.trim()}})
             }
         })
-        const drivers = await Driver.findAll( {
+        const driversDB = await Driver.findAll( {
             include: {
                 model: Team,
                 as: 'teams',
@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
                 through: {attributes: [],}
             } 
         })
-        res.status(200).send([...driversAPI, ...drivers])
+        res.status(200).send([...driversAPI, ...driversDB])
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: error.message })
