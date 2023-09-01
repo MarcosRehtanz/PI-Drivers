@@ -23,7 +23,7 @@ export const DriversCards = () => {
                 name={name}
                 surname={surname}
                 image={image ? image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'}
-                teams={teams.sort((a,b)=>a.id-b.id)}
+                teams={teams ? teams.sort((a,b)=>a.id-b.id) : ['']}
             />
         })
     }

@@ -59,14 +59,9 @@ export const getDriversForName = (name) => {
 }
 
 export const setFilter = (filter) => {
+    console.log(filter)
     return {
         type: 'FILTER',
         payload: filter
-    }
-}
-export const setOrder = (key, order) => {
-    return {
-        type: 'ORDER',
-        payload: [key, order]
     }
 }

@@ -1,28 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
-import { setFilter, setOrder } from "../../redux/actions"
+import { setFilter } from "../../redux/actions"
 import { useState } from "react"
 
 export const FilterBar = () => {
 
     const [ formFilter, setFormFilter ] =  useState({
         origin: 'ALL',
-        teams: 'ALL',
+        teams: '*',
         order: 'na',
     })
     const allTeams = useSelector(state => state.allTeams)
     const dispatch = useDispatch()
-
-    const handlerTeams = ({ target }) => {
-        dispatch(setFilter(target.value))
-    }
-    const handlerOrder = async ({ target }) => {
-        try {
-            if (target.value[0] === 'n') dispatch(setOrder('name', target.value[1]));
-            else dispatch(setOrder('birthdate', target.value[1]));
-        } catch (error) {
-            console.warn(error);
-        }
-    }
 
     const handlerOrigin = ({ target }) => {
         setFormFilter((old)=>({
@@ -49,7 +37,7 @@ export const FilterBar = () => {
                 </section>
                 {
                     allTeams
-                        ? <select onChange={e=>{handlerTeams(e); handlerOrigin(e)}} name="teams" >
+                        ? <select onChange={e=> handlerOrigin(e)} name="teams" >
                             <option value='*' >All teams</option>
                             {allTeams.map((team, index) => {
                                 return <option key={index} value={team.name} >{team.name}</option>
@@ -57,18 +45,18 @@ export const FilterBar = () => {
                         </select>
                         : ''
                 }
-                <select onChange={(e)=>{handlerOrder(e); handlerOrigin(e)}} name="order">
+                <select onChange={(e)=>handlerOrigin(e)} name="order">
                     <optgroup label="Name">
                         <option value="na">a - z</option>
                         <option value="nd">z - a</option>
                     </optgroup>
                     <optgroup label="Age">
-                        <option value="ad">young</option>
-                        <option value="aa">older</option>
+                        <option value="ad">youngest</option>
+                        <option value="aa">oldes</option>
                     </optgroup>
                 </select>
                 <br />
-                <button onClick={()=>console.log(formFilter)} >Filter</button>
+                <button onClick={()=>dispatch(setFilter(formFilter))} >Filter</button>
             </form>
 
         </div>

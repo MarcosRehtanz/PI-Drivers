@@ -6,7 +6,9 @@ const initialState = {
     allTeams: [],
 }
 
-export const reducers =  (state = initialState, action) => {
+
+
+export const reducers = (state = initialState, action) => {
 
     switch (action.type) {
         case 'GET_TEAMS':
@@ -29,27 +31,30 @@ export const reducers =  (state = initialState, action) => {
                 filters: []
             }
         case 'FILTER':
-            console.log(action.payload);
-            return {
-                ...state,
-                filterDrivers: action.payload==='*' ? [...state.allDrivers] : [...state.allDrivers].filter(driver => {
-                    //action.payload);
-                    return driver.teams.some(team =>{
-                        return team.name === action.payload
-                        })
-                }),
-                filter: action.payload
-            }
-        case 'ORDER':
+            const { origin, teams, order } = action.payload
+            let filter = [...state.allDrivers].filter(driver => {
+                //action.payload);
+                return (
+                    (origin === 'ALL'
+                        ? true
+                        : origin === 'API'
+                            ? !isNaN(+driver.id)
+                            : isNaN(+driver.id))
+                    &&
+                    (teams !== '*'
+                        ? driver.teams.some(team => team.name === teams)
+                        : true)
+                )
+            })
             const SortArray = (x, y) => {
-
-                return (action.payload[1] === 'a')
-                ? x[action.payload[0]].localeCompare(y[action.payload[0]])
-                : y[action.payload[0]].localeCompare(x[action.payload[0]])
+                const _name = order[0]==='n'?'name':'birthdate'
+                return (order[1] === 'a')
+                    ? x[_name].localeCompare(y[_name])
+                    : y[_name].localeCompare(x[_name])
             }
             return {
                 ...state,
-                filterDrivers: [...state.filterDrivers].sort(SortArray)
+                filterDrivers: [...filter].sort(SortArray)
             }
         case 'GET_DRIVERS_FOR_NAME':
             return {
