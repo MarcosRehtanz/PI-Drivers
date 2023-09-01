@@ -33,9 +33,10 @@ export const addDriver = (driver) => {
     return async (dispatch) => {
         try {
             const { data } = await axios.post('http://localhost:3001/drivers', driver)
+            log
             dispatch({
                 type: 'ADD_DRIVER',
-                payload: data.driver
+                payload: data
             })
         } catch (error) {
             dispatch()

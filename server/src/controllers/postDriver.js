@@ -11,13 +11,13 @@ module.exports = async (req, res) => {
     try {
         const driver = await Driver.create(newDriver)
         
-        let teams = newDriver.teams.split(',')
+        const teams = newDriver.teams.split(',')
         teams.map( async name => {
             const team = await Team.findOne( { where: {name: name.trim()} } )
             driver.addTeam(team)
         } )
 
-        res.status(200).send({message: 'All Correct',driver, })
+        res.status(200).send(driver)
     } catch (error) {
         res.status(500).send({error: error.message})
     }

@@ -1,8 +1,16 @@
+import { useEffect } from "react"
 import { DriversCards } from "../../components/DriversCards/DriversCards"
 import { FilterBar } from "../../components/FilterBar/FilterBar"
+import { useDispatch } from "react-redux"
+import { getAllDrivers } from "../../redux/actions"
 
 export const Home = () => {
 
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(getAllDrivers())
+    },[])
 
     return (
         <div>

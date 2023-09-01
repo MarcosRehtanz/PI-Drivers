@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { setFilter } from "../../redux/actions"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const FilterBar = () => {
 
@@ -18,6 +18,10 @@ export const FilterBar = () => {
             [target.name]: target.value
         }))
     }
+
+    useEffect(()=>{
+        //dispatch(setFilter(formFilter))
+    },[])
 
     return (
         <div>

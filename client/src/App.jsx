@@ -14,7 +14,6 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(getAllDrivers());
     dispatch(getAllTeams())
   }, [])
 
