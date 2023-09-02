@@ -1,8 +1,59 @@
 .DriverCard-container {
-    width: 120px;
+    width: 250px;
+    height: 150px;
     margin: auto;
+
+    border-radius: 15px;
+    border-width: 2.5px;
+    border-style: solid;
+    border-color: var(--color-grey);
+
+    background-color: var(--color-light-grey);
+    
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-template-rows: min-content auto;
+    row-gap: 15px;
+
+    transition: transform 1s 0s;
+}
+
+.DriverCard-container:hover{
+    transform: scale(1.2) translate( 0px, -5px) ;
+    z-index: 10;
+}
+
+.DriverCard-name {
+    width: 100%;
+    padding: 0;
+    margin:  0 auto;
+    
+    color: var(--color-dark-first);
+    box-shadow: 1px 0 5px 1px var(--color-dark-first);
+
+    grid-column: 1/3;
 }
 
 .DriverCard-image {
+    width: 90%;
+    height: 100%;
+    margin: 0 10px;
+
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px 1px var(--color-dark-first);
+
+    display: flex;
+    overflow: hidden;
+}
+
+.Driver-image{
     width: 100%;
+    margin: auto;
+}
+
+.DriverCard-data {
+    padding: 5px;
+
+    color: var(--color-dark-first);
+    font-size: 0.75rem;
 }

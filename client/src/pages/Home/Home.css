@@ -1,0 +1,21 @@
+#Home-container {
+    width: 100%;
+
+    display: flex;
+}
+
+#FilterBar-container {
+    width: 220px;
+    min-width: min-content;
+    height: 100%;
+    padding: 2rem 0;
+
+    background-color: gray;
+
+    position: fixed;
+
+}
+
+#DriversCards-container {
+    margin: auto;
+}

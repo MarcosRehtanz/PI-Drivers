@@ -24,7 +24,7 @@ export const FilterBar = () => {
     },[])
 
     return (
-        <div>
+        <div id="FilterBar-container">
 
             <form onSubmit={e => e.preventDefault()}>
                 <section onChange={handlerOrigin} id='origin' >

@@ -5,13 +5,12 @@ export const DriverCard = ({ id, name, surname, image, teams }) => {
 
     return (
 
-        <div id={id} className="DriverCard-container">
-            <Link to={`/driver/${id}`} >
-                <img className='DriverCard-image' src={image} alt="foto" />
-                <p>{name} {surname}</p>
-                { teams ? <ul>{teams.map((team,i)=><li key={i}>{team.name}</li>)}</ul> :'' }
-            </Link>
-        </div>
+        <Link to={`/driver/${id}`} id={id} className='DriverCard-container navigate-item' >
+            <h1 className='DriverCard-name'>{name} {surname}</h1>
+            <div className='DriverCard-image'><img className='Driver-image' src={image} alt="foto" /></div>
+            {teams ? <p className='DriverCard-data'>{teams.map((team) => team.name).join(', ')}</p> : ''}
+            {/* {teams ? <div className='DiverCard-data'>{teams.map((team, i) => <p key={i}>{team.name}</p>)}</div> : ''} */}
+        </Link>
 
     )
 

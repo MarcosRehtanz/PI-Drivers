@@ -1,0 +1,33 @@
+nav {
+
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+}
+
+#Nav-container {
+    padding: 15px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: rgb(0, 24, 47)
+}
+
+#NavBar-contain {
+
+    display: flex;
+    flex-direction: row;
+
+    column-gap: 1rem;
+
+    list-style: none;
+}
+
+.navigate-item {
+
+    color: white;
+    text-decoration: none;
+
+}

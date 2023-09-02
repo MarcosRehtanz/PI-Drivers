@@ -1,24 +1,24 @@
 import { Link } from "react-router-dom"
 import { SearchBar } from "../SearchBar/SearchBar"
-
+import './Nav.css'
 
 export const Nav = () => {
 
     return (
 
         <nav>
-            <div>
-                <Link to='/'>
-                    <img src="/F1.svg" alt="" />
+            <div id="Nav-container" >
+                <Link to='/' id="">
+                    <img src="/F1.svg" alt="logo" />
                 </Link>
 
                 <SearchBar/>
 
-                <ul>
-                    <Link to='/home'>
+                <ul id="NavBar-contain">
+                    <Link to='/home' className="navigate-item">
                         <li>Home</li>
                     </Link>
-                    <Link to='/form'>
+                    <Link to='/form' className="navigate-item">
                         <li>Form</li>
                     </Link>
                 </ul>

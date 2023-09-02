@@ -1,9 +1,10 @@
 #cards-section {
-    width: 720px;
+    width: max-content;
     margin: auto;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
 }
 
 #selector-container {
