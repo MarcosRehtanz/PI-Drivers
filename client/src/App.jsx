@@ -7,25 +7,29 @@ import { Detail } from './pages/Detail/Detail'
 import { Nav } from './components/Nav/Nav'
 import { Landing } from './pages/Landing/Landing'
 import { useDispatch } from 'react-redux'
-import { getAllDrivers, getAllTeams } from './redux/actions'
+import { getAllTeams } from './redux/actions'
 
 
 function App() {
   const dispatch = useDispatch()
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getAllTeams())
   }, [])
 
   return (
     <>
-      <Nav/>
       <Routes>
         <Route path='/' Component={Landing} />
-        <Route path='/home' Component={Home} />
+        <Route path='/home' element={
+          <>
+            <Nav />
+            <Home />
+          </>
+        } />
         <Route path='/form' Component={Form} >
         </Route>
-        <Route path='/driver/:id' element={ <Detail/> }/>
+        <Route path='/drivers/:id' element={<Detail />} />
       </Routes>
     </>
   )

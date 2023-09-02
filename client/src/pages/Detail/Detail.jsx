@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
+import './Detail.css'
 
 export const Detail = () => {
 
@@ -12,15 +13,9 @@ export const Detail = () => {
             const { data } = await axios.get(`http://localhost:3001/drivers/${id}`)
             console.log(await {
                 ...data,
-                teams: data.teams.map((team) => team)//{ return team.name })
+                teams: data.teams.map((team) => team)
             });
             setDriver(data)
-            // await Promise.all(setDriver(() => {
-            //     return {
-            //         ...data,
-            //         teams: data.teams.map((team) => { return team.name })
-            //     }
-            // }))
         } catch (error) {
             console.log(error.message);
         }
@@ -32,15 +27,25 @@ export const Detail = () => {
 
     return (
 
-        <div>
-            <p>{driver.name} {driver.surname}</p>
-            <p>{driver.birthdate}</p>
-            <p>{driver.nationality}</p>
-            <p>{driver.description}</p>
-            {
-               driver?.teams ? driver?.teams?.map(team => <p>{team?.name}</p>):''
-            }
-            <img src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
+        <div id="Detail-container">
+            <section id="section-container-header">
+                <div id="header-image">
+                    <Link to='/home'>
+                        <button id="header-button" />
+                    </Link>
+                </div>
+                <div id="header-title">
+                    <h1>{driver.name} {driver.surname}</h1>
+                    <p>{driver.birthdate} {driver.nationality}</p>
+                    {
+                        driver?.teams ? <p>{driver?.teams?.map(team => team?.name).join(', ')}</p> : ''
+                    }
+                </div>
+            </section>
+            <section id="section-container-data">
+                <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
+                <p id="Detail-description" >{driver.description}</p>
+            </section>
         </div>
 
     )
