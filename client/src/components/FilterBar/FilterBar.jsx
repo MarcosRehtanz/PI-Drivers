@@ -60,7 +60,7 @@ export const FilterBar = () => {
                     </optgroup>
                 </select>
                 <br />
-                <button onClick={()=>dispatch(setFilter(formFilter))} >Filter</button>
+                <button className="Effect-button" onClick={()=>dispatch(setFilter(formFilter))} >Filter</button>
             </form>
 
         </div>

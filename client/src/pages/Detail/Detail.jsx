@@ -46,6 +46,12 @@ export const Detail = () => {
                 <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
                 <p id="Detail-description" >{driver.description}</p>
             </section>
+            <section>
+                {isNaN(+id)
+                    ? <button id="Detail-edit-button" className="Effect-button">EDIT</button>
+                    : <br />
+                }
+            </section>
         </div>
 
     )

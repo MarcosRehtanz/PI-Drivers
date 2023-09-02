@@ -5,3 +5,30 @@
   padding: 0;
   text-align: center;
 }
+
+.Effect-button {
+  width: 75px;
+  height: 25px;
+  padding: 2.5px 0 0 0;
+  
+  border-radius: 5px;
+  border: 0 solid #00000000 ;
+  border-width: 0  5px 5px 0;
+  
+  font-weight: 800;
+  background-color: var(--color-dark-second);
+  transition-duration: 0.25s;
+  transition-property: all;
+  
+}
+.Effect-button:hover {
+  transform: scale(1.1) skew(-15deg, 0deg);
+
+  border-radius: 0 20px;
+  border-color: red;
+  background-color: rgba(255, 255, 255, 1);
+
+  color: var(--color-dark-second);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  cursor: pointer;
+}
