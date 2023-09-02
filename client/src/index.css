@@ -1,5 +1,6 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, Helvetica, 'Arial Narrow Bold', sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   line-height: 1.5;
   font-weight: 400;
 
@@ -7,6 +8,7 @@
   color: rgba(255, 255, 255, 0.87);
   --color-white: rgba(255, 255, 255, 0.87);
   --color-light-grey: rgba(240, 240, 240);
+  --color-light-gray: rgba(240, 240, 240);
   --color-grey: rgb(72, 72, 72);
   --color-dark-first: rgb(0, 30, 60);
   --color-dark-second: rgb(0, 24, 48);
@@ -22,4 +24,7 @@
   margin: 0;
   border: 0;
   padding: 0;
+}
+h1 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }

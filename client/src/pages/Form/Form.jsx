@@ -54,8 +54,8 @@ export const Form = () => {
         }
 
     }
-    const removeTeam = ({target}) => {
-        setDriver( oldDriver => ({
+    const removeTeam = ({ target }) => {
+        setDriver(oldDriver => ({
             ...oldDriver,
             teams: oldDriver.teams.split(', ').filter(team => team !== target.name).join(', ')
         }))
@@ -97,63 +97,72 @@ export const Form = () => {
     }, [driver])
 
     return (
-        <div>
-            <form onSubmit={e => e.preventDefault()} >
+            <form id='Form-container' onSubmit={e => e.preventDefault()} >
+                <section id='Form-header'>
+                    <div>
+                        <div className='input-section' >
+                            <label className='label-name' >Nombre</label>
+                            <input value={driver.name} onChange={handleChange} name="name" className='input' type="text" />
+                            {!error.name ? <br /> : <label className='error-message'>error</label>}
+                        </div>
 
-                <div className='input-section' >
-                    <label className='label-name' >Nombre</label>
-                    <input value={driver.name} onChange={handleChange} name="name" className='input' type="text" />
-                </div>
-                {!error.name ? <br /> : <label className='error-message'>error</label>}
+                        <div className='input-section' >
+                            <label className='label-name' >Apellido</label>
+                            <input value={driver.surname} onChange={handleChange} name="surname" className='input' type="text" />
+                            {!error.surname ? <br /> : <label className='error-message'>error</label>}
+                        </div>
+                    </div>
 
-                <div className='input-section' >
-                    <label className='label-name' >Apellido</label>
-                    <input value={driver.surname} onChange={handleChange} name="surname" className='input' type="text" />
-                </div>
-                {!error.surname ? <br /> : <label className='error-message'>error</label>}
+                    <div className='input-section' >
+                        <label className='label-name' >Nacionalidad</label>
+                        <input value={driver.nationality} onChange={handleChange} name="nationality" className='input' type="text" />
+                        {!error.nationality ? <br /> : <label className='error-message'>error</label>}
+                    </div>
 
-                <div className='input-section' >
-                    <label className='label-name' >Nacionalidad</label>
-                    <input value={driver.nationality} onChange={handleChange} name="nationality" className='input' type="text" />
-                </div>
-                {!error.nationality ? <br /> : <label className='error-message'>error</label>}
 
-                <div className='input-section' >
-                    <label className='label-name' >Imagen</label>
-                    <input value={driver.image} onChange={handleChange} name="image" className='input' type="url" />
-                </div>
-                {!error.image ? <br /> : <label className='error-message'>error</label>}
+                    <div className='input-section'>
+                        <label className='label-name' >Fecha de Nacimiento</label>
+                        <input value={driver.birthdate} onChange={handleChange} name="birthdate" className='input input-date' type="date" />
+                        {!error.birthdate ? <br /> : <label className='error-message'>error</label>}
+                    </div>
 
-                <div className='input-section'>
-                    <label className='label-name' >Fecha de Nacimiento</label>
-                    <input value={driver.birthdate} onChange={handleChange} name="birthdate" className='input input-date' type="date" />
-                </div>
-                {!error.birthdate ? <br /> : <label className='error-message'>error</label>}
+                    <div className='input-section' >
+                        <label className='label-name' >Escuderías</label>
+                        <select onChange={handleChange} name="teams" id="">
+                            <option value='0'>Select a Team *</option>
+                            {allTeams.map(team => <option value={team.name} >{team.name}</option>)}
+                        </select>
+                        {error.teams
+                            ? <label className='error-message'>error</label>
+                            : driver.teams.split(', ').map((team) => <>
+                                -<button onClick={removeTeam} className='team' name={team}>{team}</button>-
+                            </>)
+                        }
+                    </div>
+                </section>
+                <section>
+                    <div className='input-section' >
+                        <label className='label-name' >Imagen</label>
+                        <input value={driver.image} onChange={handleChange} name="image" className='input' type="url" />
+                    </div>
+                    {!error.image ? <br /> : <label className='error-message'>error</label>}
+                    {driver.image
+                        ? <img id='Form-photo-profile' src={driver.image} alt="" />
+                        : <img id='Form-photo-profile' src="" alt="" />
+                    }
 
-                <div className='input-section input-section-date' >
-                    <label className='label-name' >Descripción:</label>
-                    <textarea value={driver.description} onChange={handleChange} name="description" className='input' cols="30" rows="10" />
-                </div>
-                {!error.description ? <br /> : <label className='error-message'>error</label>}
+                </section>
 
-                <div className='input-section' >
-                    <label className='label-name' >Escuderías</label>
-                    <select onChange={handleChange} name="teams" id="">
-                        <option value='0'>Select a Team *</option>
-                        {allTeams.map(team => <option value={team.name} >{team.name}</option>)}
-                    </select>
-                </div>
-                {error.teams 
-                    ? <label className='error-message'>error</label>
-                    : driver.teams.split(', ').map((team) => <>
-                        -<button onClick={removeTeam} className='team' name={team}>{team}</button>- 
-                    </>)
-                }
-                <br />
+                <section>
+                    <div className='input-section input-section-date' >
+                        <label className='label-name' >Descripción:</label>
+                        <textarea value={driver.description} onChange={handleChange} name="description" className='input' cols="30" rows="10" />
+                    </div>
+                    {!error.description ? <br /> : <label className='error-message'>error</label>}
+                </section>
 
                 <button onClick={submit} >Submit</button>
             </form>
-        </div>
     )
 
 }

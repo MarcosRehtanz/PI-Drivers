@@ -1,7 +1,7 @@
 .DriverCard-container {
     width: 250px;
     height: 150px;
-    margin: auto;
+    margin: 5px;
 
     border-radius: 15px;
     border-width: 2.5px;
@@ -28,6 +28,7 @@
     padding: 0;
     margin:  0 auto;
     
+    border-radius: 15px 15px 0 0;
     color: var(--color-dark-first);
     box-shadow: 1px 0 5px 1px var(--color-dark-first);
 
