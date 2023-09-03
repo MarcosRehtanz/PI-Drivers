@@ -1,12 +1,13 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import './Edit.css'
 
 export const Edit = () => {
 
     const { id } = useParams()
+    const navigate = useNavigate()
     const allTeams = useSelector(state => state.allTeams)
     const [driver, setDriver] = useState({
         name: '',
@@ -16,6 +17,7 @@ export const Edit = () => {
         birthdate: '',
         description: '',
         teams: '',
+        oldTeams: '',
     })
 
     const getDriver = async () => {
@@ -23,22 +25,16 @@ export const Edit = () => {
             const { data } = await axios.get(`http://localhost:3001/drivers/${id}`)
             console.log(await {
                 ...data,
-                teams: data.teams.map((team) => team.name).join(', ')
+                teams: data.teams.map((team) => team.name).join(', '),
+                oldTeams: data.teams.map((team) => team.name).join(', ')
             });
             setDriver({
                 ...data,
-                teams: data.teams.map((team) => team.name).join(', ')
+                teams: data.teams.map((team) => team.name).join(', '),
+                oldTeams: data.teams.map((team) => team.name).join(', ')
             })
         } catch (error) {
-            setDriver({
-                name: '',
-                surname: '',
-                nationality: '',
-                image: '',
-                birthdate: '',
-                description: '',
-                teams: '',
-            })
+            navigate('/home')
             console.log(error.message);
         }
     }
@@ -87,8 +83,8 @@ export const Edit = () => {
         if (true) {
             console.log(driver);
             try {
-                await axios.put(`http://localhost:3001/drivers`, driver)
-
+                const { data } = await axios.put(`http://localhost:3001/drivers`, driver)
+                alert(data)
             } catch (error) {
                 alert(error.message);
             }
@@ -96,7 +92,9 @@ export const Edit = () => {
     }
 
     useEffect(() => {
-        getDriver()
+        isNaN(+id)
+        ? getDriver()
+        : navigate('/home')
     }, [])
 
     return (
