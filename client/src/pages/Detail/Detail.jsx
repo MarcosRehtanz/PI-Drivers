@@ -48,7 +48,9 @@ export const Detail = () => {
             </section>
             <section>
                 {isNaN(+id)
-                    ? <button id="Detail-edit-button" className="Effect-button">EDIT</button>
+                    ? <Link to={`/drivers/edit/${id}`}>
+                        <button id="Detail-edit-button" className="Effect-button">EDIT</button>
+                    </Link>
                     : <br />
                 }
             </section>
