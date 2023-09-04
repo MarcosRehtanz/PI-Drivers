@@ -1,0 +1,55 @@
+#Form-container {
+    width: 75%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    background-color: var(--color-white);
+}
+/* *Header */
+#Form-header {
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+/* *image */
+#Form-photo-profile {
+    max-width: 400px;
+    max-height: 300px;
+}
+
+/* ?labels */
+.label-name{
+    color: var(--color-dark-second);
+    word-wrap: none;
+}
+
+/* *input */
+.input-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.input, .input-date {
+    border: 2px solid var(--color-light-gray);
+    color: var(--color-dark-first);
+    background-color: var(--color-white);
+}
+.input{
+    width: 150px;
+    font-family: system-ui, -apple-system, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.input-date{
+    width: auto;
+}
+textarea.input {
+    padding: 1rem;
+    
+}
+
+/* !errors */
+.error-message{
+    color: red;
+}

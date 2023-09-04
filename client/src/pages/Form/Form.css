@@ -1,55 +1,91 @@
-#Form-container {
-    width: 75%;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+#Detail-container {
+    max-width: 75%;
+    height: max-content;
 
-    background-color: var(--color-white);
-}
-/* *Header */
-#Form-header {
-    grid-column: 1/3;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px 20px 0;
+
+    color: var(--color-dark-second);
+    background-color: white;
+    position: relative;
+    left: 10%;
+    top: 100px;
 }
 
+#section-container-header {
+    height: 100px;
+    display: flex;
 
-/* *image */
-#Form-photo-profile {
+    background-color: var(--color-dark-second);
+}
+
+#header-image {
+    width: 200px;
+    height: 100%;
+}
+
+#header-button {
+    width: 80%;
+    height: 100%;
+
+    background-color: #00000000;
+    background-image: url('/F1.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    transition: transform 0.5s 0s;
+}
+
+#header-button:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#header-title {
+    width: 100%;
+    border-bottom-left-radius: 10px;
+
+    background-color: white;
+}
+
+
+#section-container-data {
+    width: 100%;
+    height: 50%;
+
+    border-top-right-radius: 15px;
+    border-color: var(--color-dark-second);
+    border-width: 10px;
+    border-top-style: solid;
+    border-right-style: solid;
+
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 300px;
+}
+
+#Detail-image {
     max-width: 400px;
     max-height: 300px;
+    margin: auto;
 }
 
-/* ?labels */
-.label-name{
-    color: var(--color-dark-second);
-    word-wrap: none;
+#Detail-description {
+    padding: 20px;
+    text-align: left;
+    overflow-x: hidden;
 }
 
-/* *input */
-.input-section{
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-}
-.input, .input-date {
-    border: 2px solid var(--color-light-gray);
-    color: var(--color-dark-first);
-    background-color: var(--color-white);
-}
-.input{
-    width: 150px;
-    font-family: system-ui, -apple-system, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.input-date{
-    width: auto;
-}
-textarea.input {
-    padding: 1rem;
-    
+#Detail-description::-webkit-scrollbar {
+    width: 12px;
 }
 
-/* !errors */
-.error-message{
-    color: red;
+#Detail-description::-webkit-scrollbar-track {
+    background: gray;
+}
+
+#Detail-description::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-first);
+    border-radius: 20px;
+    border: 2px solid gray;
 }

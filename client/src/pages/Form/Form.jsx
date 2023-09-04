@@ -1,13 +1,17 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import './Form.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { addDriver, getAllDrivers } from '../../redux/actions'
-
+import { addDriver } from "../../redux/actions"
 
 export const Form = () => {
 
+    const { id } = useParams()
+    const navigate = useNavigate()
+    const location = useLocation().pathname
+    const allTeams = useSelector(state => state.allTeams)
+    const dispatch = useDispatch()
     const [driver, setDriver] = useState({
         name: '',
         surname: '',
@@ -16,11 +20,27 @@ export const Form = () => {
         birthdate: '',
         description: '',
         teams: '',
+        oldTeams: '',
     })
-    const [error, setError] = useState({})
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const allTeams = useSelector(state => state.allTeams)
+
+    const getDriver = async () => {
+        try {
+            const { data } = await axios.get(`http://localhost:3001/drivers/${id}`)
+            console.log(await {
+                ...data,
+                teams: data.teams.map((team) => team.name).join(', '),
+                oldTeams: data.teams.map((team) => team.name).join(', ')
+            });
+            setDriver({
+                ...data,
+                teams: data.teams.map((team) => team.name).join(', '),
+                oldTeams: data.teams.map((team) => team.name).join(', ')
+            })
+        } catch (error) {
+            navigate('/home')
+            console.log(error.message);
+        }
+    }
 
     const handleChange = ({ target }) => {
 
@@ -32,7 +52,8 @@ export const Form = () => {
                         ? target.value
                         : !driver.teams.includes(target.value)
                             ? driver.teams + ', ' + target.value
-                            : driver.teams);
+                            : driver.teams
+                    );
 
                     return {
                         ...oldDriver,
@@ -52,7 +73,6 @@ export const Form = () => {
                 }
             })
         }
-
     }
     const removeTeam = ({ target }) => {
         setDriver(oldDriver => ({
@@ -62,26 +82,24 @@ export const Form = () => {
         console.log(target.name);
     }
 
-    const validate = () => {
-        let err = {}
-        if (!driver.name) err.name = 'Campo Obligatorio'
-        if (!driver.surname) err.surname = 'Campo Obligatorio'
-        if (!driver.nationality) err.nationality = 'Campo Obligatorio'
-        // //if( !driver.image) err.image = 'Campo Obligatorio'
-        if (!driver.birthdate) err.birthdate = 'Campo Obligatorio'
-        if (!driver.description) err.description = 'Campo Obligatorio'
-        if (!driver.teams) err.teams = 'Campo Obligatorio'
-
-        setError(() => err)
-        //console.log(Object.keys(error).length);
-    }
-
-    const submit = () => {
-        try {
-            if (Object.keys(error).length > 0) {
-                alert('Completa todos los campos para continuar el registro')
-                return;
+    const handleUpDate = async () => {
+        if (true) {
+            console.log(driver);
+            try {
+                const { data } = await axios.put(`http://localhost:3001/drivers`, driver)
+                alert(data)
+                navigate('/home')
+            } catch (error) {
+                alert(error.message);
             }
+        }
+    }
+    const handleCreate = () => {
+        try {
+            // if (Object.keys(error).length > 0) {
+            //     alert('Completa todos los campos para continuar el registro')
+            //     return;
+            // }
             console.log(driver);
             dispatch(addDriver(driver))
             alert('Suscripción exitosa')
@@ -92,77 +110,85 @@ export const Form = () => {
         }
     }
 
+
+
     useEffect(() => {
-        validate()
-    }, [driver])
+        if (location !== '/form') {
+            isNaN(+id)
+                ? getDriver()
+                : navigate('/home')
+        }
+    }, [])
 
     return (
-            <form id='Form-container' onSubmit={e => e.preventDefault()} >
-                <section id='Form-header'>
+
+        <div id="Detail-container">
+            <section id="section-container-header">
+                <div id="header-image">
+                    <Link to='/home'>
+                        <button id="header-button" />
+                    </Link>
+                </div>
+                <div id="header-title">
+                    {/* <h1>{driver.name} {driver.surname}</h1> */}
                     <div>
                         <div className='input-section' >
                             <label className='label-name' >Nombre</label>
                             <input value={driver.name} onChange={handleChange} name="name" className='input' type="text" />
-                            {!error.name ? <br /> : <label className='error-message'>error</label>}
-                        </div>
+                            {/* {!error.name ? <br /> : <label className='error-message'>error</label>} */}
 
-                        <div className='input-section' >
                             <label className='label-name' >Apellido</label>
                             <input value={driver.surname} onChange={handleChange} name="surname" className='input' type="text" />
-                            {!error.surname ? <br /> : <label className='error-message'>error</label>}
+                            {/* {!error.surname ? <br /> : <label className='error-message'>error</label>} */}
                         </div>
                     </div>
-
-                    <div className='input-section' >
-                        <label className='label-name' >Nacionalidad</label>
-                        <input value={driver.nationality} onChange={handleChange} name="nationality" className='input' type="text" />
-                        {!error.nationality ? <br /> : <label className='error-message'>error</label>}
-                    </div>
-
-
                     <div className='input-section'>
                         <label className='label-name' >Fecha de Nacimiento</label>
                         <input value={driver.birthdate} onChange={handleChange} name="birthdate" className='input input-date' type="date" />
-                        {!error.birthdate ? <br /> : <label className='error-message'>error</label>}
+                        <label className='label-name' >Nacionalidad</label>
+                        <input value={driver.nationality} onChange={handleChange} name="nationality" className='input' type="text" />
                     </div>
-
-                    <div className='input-section' >
-                        <label className='label-name' >Escuderías</label>
-                        <select onChange={handleChange} name="teams" id="">
-                            <option value='0'>Select a Team *</option>
-                            {allTeams.map(team => <option value={team.name} >{team.name}</option>)}
-                        </select>
-                        {error.teams
-                            ? <label className='error-message'>error</label>
-                            : driver.teams.split(', ').map((team) => <>
-                                -<button onClick={removeTeam} className='team' name={team}>{team}</button>-
-                            </>)
-                        }
-                    </div>
-                </section>
+                    <label className='label-name' >Escuderías</label>
+                    <select onChange={handleChange} name="teams" id="">
+                        <option value='0'>Select a Team *</option>
+                        {allTeams.map(team => <option value={team.name} >{team.name}</option>)}
+                    </select>
+                    {!driver.teams
+                        ? <p>quien</p>
+                        : driver.teams.split(', ').map((team) => <>
+                            -<button onClick={removeTeam} className='team' name={team}>{team}</button>-
+                        </>)
+                    }
+                </div>
+            </section>
+            <section id="section-container-data">
                 <section>
                     <div className='input-section' >
                         <label className='label-name' >Imagen</label>
                         <input value={driver.image} onChange={handleChange} name="image" className='input' type="url" />
                     </div>
-                    {!error.image ? <br /> : <label className='error-message'>error</label>}
-                    {driver.image
-                        ? <img id='Form-photo-profile' src={driver.image} alt="" />
-                        : <img id='Form-photo-profile' src="" alt="" />
-                    }
-
+                    <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
                 </section>
-
                 <section>
-                    <div className='input-section input-section-date' >
+                    <div style={{ display: "flex", flexDirection: "column" }} className='input-section input-section-date' >
                         <label className='label-name' >Descripción:</label>
                         <textarea value={driver.description} onChange={handleChange} name="description" className='input' cols="30" rows="10" />
                     </div>
-                    {!error.description ? <br /> : <label className='error-message'>error</label>}
                 </section>
+            </section>
+            <section>
+                {location === '/form'
+                    ? <button onClick={handleCreate} className="Effect-button" >Submit</button>
+                    : isNaN(+id)
+                        ? <section>
+                            <button onClick={ () => navigate(`/drivers/${id}`) } id="Detail-edit-button" className="Effect-button">CANCEL</button>
+                            <button onClick={handleUpDate} id="Detail-edit-button" className="Effect-button">UPDATE</button>
+                        </section>
+                        : <br />
+                }
+            </section>
+        </div>
 
-                <button onClick={submit} >Submit</button>
-            </form>
     )
 
 }
