@@ -19,7 +19,7 @@ export const Form = () => {
         image: '',
         birthdate: '',
         description: '',
-        teams: '',
+        teams: [],
         oldTeams: '',
     })
 
@@ -33,8 +33,8 @@ export const Form = () => {
             });
             setDriver({
                 ...data,
-                teams: data.teams.map((team) => team.name).join(', '),
-                oldTeams: data.teams.map((team) => team.name).join(', ')
+                teams: data.teams.map((team) => team.name),
+                oldTeams: data.teams.map((team) => team.name)
             })
         } catch (error) {
             navigate('/home')
@@ -51,7 +51,7 @@ export const Form = () => {
                     console.log(driver.teams === ''
                         ? target.value
                         : !driver.teams.includes(target.value)
-                            ? driver.teams + ', ' + target.value
+                            ? driver.teams.push(target.value)
                             : driver.teams
                     );
 
@@ -60,7 +60,7 @@ export const Form = () => {
                         teams: !driver.teams
                             ? target.value
                             : !driver.teams.includes(target.value)
-                                ? driver.teams + ', ' + target.value
+                                ? driver.teams.push(target.value)
                                 : driver.teams
                     }
                 })
@@ -77,11 +77,12 @@ export const Form = () => {
     const removeTeam = ({ target }) => {
         setDriver(oldDriver => ({
             ...oldDriver,
-            teams: oldDriver.teams.split(', ').filter(team => team !== target.name).join(', ')
+            teams: oldDriver.teams.filter(team => team !== target.name)
         }))
         console.log(target.name);
     }
-
+    
+    //FIXME - agregarle objeto de verificación de datos
     const handleUpDate = async () => {
         if (true) {
             console.log(driver);
@@ -101,7 +102,7 @@ export const Form = () => {
             //     return;
             // }
             console.log(driver);
-            dispatch(addDriver(driver))
+            dispatch(addDriver(driver)) //FIXME - quitarle esa responsabilidad del CRUD al redux
             alert('Suscripción exitosa')
             navigate('/home')
         } catch (err) {
@@ -156,7 +157,7 @@ export const Form = () => {
                     {!driver.teams
                         ? <p>quien</p>
                         : <div id="teams-section">
-                            {driver.teams.split(', ').map((team) =>
+                            {driver.teams.map((team) =>
                                 <button onClick={removeTeam} className='team-button input-header' name={team}>{team}</button>
                             )}
                         </div>

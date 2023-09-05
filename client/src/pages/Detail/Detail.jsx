@@ -1,11 +1,15 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import './Detail.css'
+import { useDispatch } from "react-redux"
+import { getAllDrivers } from "../../redux/actions"
 
 export const Detail = () => {
 
     const { id } = useParams()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [driver, setDriver] = useState({})
 
     const getDriver = async () => {
@@ -13,11 +17,20 @@ export const Detail = () => {
             const { data } = await axios.get(`http://localhost:3001/drivers/${id}`)
             console.log(await {
                 ...data,
-                teams: data.teams.map((team) => team)
             });
             setDriver(data)
         } catch (error) {
             console.log(error.message);
+        }
+    }
+    const deleteDriver = async () => {
+        try {
+            const { data } = await axios.delete(`http://localhost:3001/drivers/${id}`)
+            dispatch(getAllDrivers());
+            alert( `${data[0].name} ha sido dado de baja` )
+            navigate('/home')
+        } catch (error) {
+            alert(error.message);
         }
     }
 
@@ -48,9 +61,14 @@ export const Detail = () => {
             </section>
             <section>
                 {isNaN(+id)
-                    ? <Link to={`/drivers/edit/${id}`}>
-                        <button id="Detail-edit-button" className="Effect-button">EDIT</button>
-                    </Link>
+                    ? <section>
+                        <Link to={`/drivers/edit/${id}`}>
+                            <button id="Detail-edit-button" className="Effect-button">EDIT</button>
+                        </Link>
+                        {/* <Link to={`/drivers/edit/${id}`}> */}
+                        <button onClick={deleteDriver} id="Detail-edit-button" className="Effect-button">DELETE</button>
+                        {/* </Link> */}
+                    </section>
                     : <br />
                 }
             </section>

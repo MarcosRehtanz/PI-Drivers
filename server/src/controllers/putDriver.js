@@ -5,7 +5,8 @@ module.exports = async (req, res) => {
     const { id, name, surname, nationality, image, birthdate, description, teams, oldTeams } = req.body
 
     try {
-        console.log(id);
+
+
         await Driver.update({
             name,
             surname,
@@ -19,22 +20,36 @@ module.exports = async (req, res) => {
             }
         })
 
-        const _teams = teams.split(', ')
-        const _oldTeams = oldTeams.split(', ')
-        const addTeams = _teams.filter(team => !_oldTeams.includes(team))
-        const deleteTeams = _oldTeams.filter(team => !_teams.includes(team))
+        // const _teams = teams.split(', ')
+        // const _oldTeams = oldTeams.split(', ')
+        const addTeams = teams.filter(team => !oldTeams.includes(team))
+        const deleteTeams = oldTeams.filter(team => !teams.includes(team))
 
         const driver = await Driver.findByPk(id)
-        addTeams.map(async team => {
+
+        await Promise.all( addTeams.map(async team => {
             const _addTeam = await Team.findOne({ where: { name: team } })
             await driver.addTeam(_addTeam)
-        })
-        deleteTeams.map(async team => {
+        }))
+        await Promise.all(deleteTeams.map(async team => {
             const _removeTeam = await Team.findOne({ where: { name: team } })
             await driver.removeTeam(_removeTeam)
+        }))
+
+
+        const editDriver = await Driver.findOne({
+            where: {
+                id
+            },
+            include: {
+                model: Team,
+                as: 'teams',
+                attributes: ['name'],
+                through: { attributes: [], }
+            }
         })
 
-        res.status(200).json('llegué')
+        res.status(200).json(editDriver)
     } catch (error) {
         console.log(error.message);
         res.status(500).json(error.message)
