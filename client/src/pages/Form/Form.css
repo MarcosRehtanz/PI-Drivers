@@ -11,8 +11,9 @@
     top: 100px;
 }
 
-#section-container-header {
-    height: 100px;
+#form-section-container-header {
+    min-height: 100px;
+    max-height: min-content;
     display: flex;
 
     background-color: var(--color-dark-second);
@@ -20,12 +21,12 @@
 
 #header-image {
     width: 200px;
-    height: 100%;
+    height: 100px;
 }
 
 #header-button {
-    width: 80%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
 
     background-color: #00000000;
     background-image: url('/F1.svg');
@@ -48,7 +49,7 @@
 }
 
 
-#section-container-data {
+#Form-section-container-data {
     width: 100%;
     height: 50%;
 
@@ -60,27 +61,37 @@
 
     overflow: hidden;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: min-content auto;
     grid-template-rows: 300px;
+}
+
+#Form-image {
+    width: min-content;
+    margin: 0;
 }
 
 #Detail-image {
     max-width: 400px;
     max-height: 300px;
-    margin: auto;
 }
 
-#Detail-description {
+#Form-description {
+    display: flex;
+    flex-direction: column;
+}
+
+#Detail-textarea-description {
     padding: 20px;
+    resize: none;
     text-align: left;
     overflow-x: hidden;
 }
 
-#Detail-description::-webkit-scrollbar {
+#Detail-textarea-description::-webkit-scrollbar {
     width: 12px;
 }
 
-#Detail-description::-webkit-scrollbar-track {
+#Detail-textarea-description::-webkit-scrollbar-track {
     background: gray;
 }
 
@@ -88,4 +99,49 @@
     background-color: var(--color-dark-first);
     border-radius: 20px;
     border: 2px solid gray;
+}
+
+/** INPUT */
+
+.input-form {
+    color: var(--color-dark-second);
+    background-color: var(--color-white);
+}
+
+.input-header {
+    max-width: max-content;
+    padding-right: 5px;
+
+    border-width: 0 5px 5px 0;
+    border-style: groove;
+    border-color: red;
+
+    text-align: right;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+    transform: skewX(-15deg);
+}
+.input-name {
+    border-width: 0 0 5px 0 ;
+    border-style: groove;
+    border-color: red;
+}
+
+/** TEAM BUTTON*/
+#teams-section {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.team-button {
+    height: max-content;
+    margin: 5px;
+    color: var(--color-dark-second);
+    background-color: #00000000;
+
+    transition: all 250ms 0s;
+}
+.team-button:hover {
+    transform: translateY(-5px);
 }

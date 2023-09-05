@@ -123,7 +123,7 @@ export const Form = () => {
     return (
 
         <div id="Detail-container">
-            <section id="section-container-header">
+            <section id="form-section-container-header">
                 <div id="header-image">
                     <Link to='/home'>
                         <button id="header-button" />
@@ -134,19 +134,19 @@ export const Form = () => {
                     <div>
                         <div className='input-section' >
                             <label className='label-name' >Nombre</label>
-                            <input value={driver.name} onChange={handleChange} name="name" className='input' type="text" />
+                            <label className='label-name' >Apellido</label>
+                            <input autoComplete="false" placeholder="name" value={driver.name} onChange={handleChange} name="name" className='input-form input-header input-name' type="text" />
                             {/* {!error.name ? <br /> : <label className='error-message'>error</label>} */}
 
-                            <label className='label-name' >Apellido</label>
-                            <input value={driver.surname} onChange={handleChange} name="surname" className='input' type="text" />
+                            <input autoComplete="false" placeholder="surname" value={driver.surname} onChange={handleChange} name="surname" className='input-form input-header input-surname' type="text" />
                             {/* {!error.surname ? <br /> : <label className='error-message'>error</label>} */}
                         </div>
                     </div>
                     <div className='input-section'>
                         <label className='label-name' >Fecha de Nacimiento</label>
-                        <input value={driver.birthdate} onChange={handleChange} name="birthdate" className='input input-date' type="date" />
+                        <input autoComplete="false" placeholder="birthdate" value={driver.birthdate} onChange={handleChange} name="birthdate" className='input-form input-date input-header' type="date" />
                         <label className='label-name' >Nacionalidad</label>
-                        <input value={driver.nationality} onChange={handleChange} name="nationality" className='input' type="text" />
+                        <input autoComplete="false" placeholder="nationality" value={driver.nationality} onChange={handleChange} name="nationality" className='input-form input-header' type="text" />
                     </div>
                     <label className='label-name' >Escuderías</label>
                     <select onChange={handleChange} name="teams" id="">
@@ -155,33 +155,33 @@ export const Form = () => {
                     </select>
                     {!driver.teams
                         ? <p>quien</p>
-                        : driver.teams.split(', ').map((team) => <>
-                            -<button onClick={removeTeam} className='team' name={team}>{team}</button>-
-                        </>)
+                        : <div id="teams-section">
+                            {driver.teams.split(', ').map((team) =>
+                                <button onClick={removeTeam} className='team-button input-header' name={team}>{team}</button>
+                            )}
+                        </div>
                     }
                 </div>
             </section>
-            <section id="section-container-data">
-                <section>
+            <section id="Form-section-container-data">
+                <div id="Form-image">
                     <div className='input-section' >
                         <label className='label-name' >Imagen</label>
-                        <input value={driver.image} onChange={handleChange} name="image" className='input' type="url" />
+                        <input placeholder="image" value={driver.image} onChange={handleChange} name="image" className='input-form' type="url" />
                     </div>
                     <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
-                </section>
-                <section>
-                    <div style={{ display: "flex", flexDirection: "column" }} className='input-section input-section-date' >
-                        <label className='label-name' >Descripción:</label>
-                        <textarea value={driver.description} onChange={handleChange} name="description" className='input' cols="30" rows="10" />
-                    </div>
-                </section>
+                </div>
+                <div id="Form-description" className='input-section input-section-date' >
+                    <label contenteditable="true" className='label-name' >Descripción:</label>
+                    <textarea value={driver.description} onChange={handleChange} placeholder="Description" name="description" id="Detail-textarea-description" className='input-form' cols="30" rows="10" />
+                </div>
             </section>
             <section>
                 {location === '/form'
                     ? <button onClick={handleCreate} className="Effect-button" >Submit</button>
                     : isNaN(+id)
                         ? <section>
-                            <button onClick={ () => navigate(`/drivers/${id}`) } id="Detail-edit-button" className="Effect-button">CANCEL</button>
+                            <button onClick={() => navigate(`/drivers/${id}`)} id="Detail-edit-button" className="Effect-button">CANCEL</button>
                             <button onClick={handleUpDate} id="Detail-edit-button" className="Effect-button">UPDATE</button>
                         </section>
                         : <br />
