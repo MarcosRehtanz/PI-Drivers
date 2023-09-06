@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import './Landing.css'
-import backVideo from '../../assets/BMW.mp4'
 import backImage from '../../assets/BMW.png'
 import { useEffect, useState } from 'react'
 
