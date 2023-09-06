@@ -103,6 +103,10 @@
 
 /** INPUT */
 
+label {
+    margin: 0 5px;
+}
+
 .input-form {
     color: var(--color-dark-second);
     background-color: var(--color-white);
@@ -114,17 +118,20 @@
 
     border-width: 0 5px 5px 0;
     border-style: groove;
-    border-color: red;
+    border-color: var(--color-dark-second);
+    /*red;*/
 
     text-align: right;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
     transform: skewX(-15deg);
 }
+
 .input-name {
-    border-width: 0 0 5px 0 ;
+    border-width: 0 0 5px 0;
     border-style: groove;
-    border-color: red;
+    border-color: var(--color-dark-second);
+    /*red;*/
 }
 
 /** TEAM BUTTON*/
@@ -134,6 +141,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .team-button {
     height: max-content;
     margin: 5px;
@@ -142,6 +150,21 @@
 
     transition: all 250ms 0s;
 }
+
 .team-button:hover {
     transform: translateY(-5px);
+}
+
+.error-message,
+.alert-message {
+    /* font-size: 12px; */
+    cursor: help;
+}
+
+.error-message {
+    color: red;
+}
+
+.alert-message {
+    color: orange;
 }

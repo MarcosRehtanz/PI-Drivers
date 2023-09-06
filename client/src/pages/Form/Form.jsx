@@ -1,9 +1,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
+import { validate } from './validate'
 import './Form.css'
-import { addDriver } from "../../redux/actions"
 
 export const Form = () => {
 
@@ -11,7 +11,7 @@ export const Form = () => {
     const navigate = useNavigate()
     const location = useLocation().pathname
     const allTeams = useSelector(state => state.allTeams)
-    const dispatch = useDispatch()
+    const [errors, setErrors] = useState({})
     const [driver, setDriver] = useState({
         name: '',
         surname: '',
@@ -20,7 +20,7 @@ export const Form = () => {
         birthdate: '',
         description: '',
         teams: [],
-        oldTeams: '',
+        oldTeams: [],
     })
 
     const getDriver = async () => {
@@ -81,37 +81,38 @@ export const Form = () => {
         }))
         console.log(target.name);
     }
-    
-    //FIXME - agregarle objeto de verificación de datos
+
     const handleUpDate = async () => {
-        if (true) {
+        if (Object.keys(errors).length > 0)  return alert('Completa todos los campos para continuar')
+        else {
             console.log(driver);
             try {
                 const { data } = await axios.put(`http://localhost:3001/drivers`, driver)
                 alert(data)
-                navigate('/home')
+                navigate(`/drivers/${id}`)
             } catch (error) {
                 alert(error.message);
             }
         }
     }
-    const handleCreate = () => {
+    const handleCreate = async () => {
+        if (Object.keys(errors).length > 0)  return alert('Completa todos los campos para continuar')
+        
         try {
-            // if (Object.keys(error).length > 0) {
-            //     alert('Completa todos los campos para continuar el registro')
-            //     return;
-            // }
             console.log(driver);
-            dispatch(addDriver(driver)) //FIXME - quitarle esa responsabilidad del CRUD al redux
+            const { data } = await axios.post('http://localhost:3001/drivers', driver)
             alert('Suscripción exitosa')
+            console.log(data);
             navigate('/home')
         } catch (err) {
             alert(err.message)
-            navigate('/home')
         }
     }
 
 
+    useEffect(() => {
+        validate(driver, setErrors)
+    }, [driver])
 
     useEffect(() => {
         if (location !== '/form') {
@@ -131,31 +132,44 @@ export const Form = () => {
                     </Link>
                 </div>
                 <div id="header-title">
-                    {/* <h1>{driver.name} {driver.surname}</h1> */}
                     <div>
                         <div className='input-section' >
-                            <label className='label-name' >Nombre</label>
-                            <label className='label-name' >Apellido</label>
-                            <input autoComplete="false" placeholder="name" value={driver.name} onChange={handleChange} name="name" className='input-form input-header input-name' type="text" />
-                            {/* {!error.name ? <br /> : <label className='error-message'>error</label>} */}
-
-                            <input autoComplete="false" placeholder="surname" value={driver.surname} onChange={handleChange} name="surname" className='input-form input-header input-surname' type="text" />
-                            {/* {!error.surname ? <br /> : <label className='error-message'>error</label>} */}
+                            {!errors.name
+                                ? <label style={{ color: 'transparent' }}>⚠</label>
+                                : errors.name[0] === 'S'
+                                    ? <label title={errors.name} className="alert-message">⚠</label>
+                                    : <label title={errors.name} className='error-message'>⚠</label>}
+                            <label className='label-name' >Name /</label>
+                            {!errors.surname
+                                ? <label style={{ color: 'transparent' }}>⚠</label>
+                                : errors.surname[0] === 'S'
+                                    ? <label title={errors.surname} className="alert-message">⚠</label>
+                                    : <label title={errors.surname} className='error-message'>⚠</label>}
+                            <label className='label-name' >Surname</label>
+                            <input autoComplete="off" placeholder="name" value={driver.name} onChange={handleChange} name="name" className='input-form input-header input-name' type="text" />
+                            <input autoComplete="off" placeholder="surname" value={driver.surname} onChange={handleChange} name="surname" className='input-form input-header input-surname' type="text" />
                         </div>
                     </div>
                     <div className='input-section'>
-                        <label className='label-name' >Fecha de Nacimiento</label>
-                        <input autoComplete="false" placeholder="birthdate" value={driver.birthdate} onChange={handleChange} name="birthdate" className='input-form input-date input-header' type="date" />
-                        <label className='label-name' >Nacionalidad</label>
-                        <input autoComplete="false" placeholder="nationality" value={driver.nationality} onChange={handleChange} name="nationality" className='input-form input-header' type="text" />
+                        {!errors.birthdate
+                            ? <label style={{ color: 'transparent' }}>⚠</label>
+                            : errors.birthdate[0] === 'S'
+                                ? <label title={errors.birthdate} className="alert-message">⚠</label>
+                                : <label title={errors.birthdate} className='error-message'>⚠</label>}
+                        <label className='label-name' >DOB</label>
+                        <input autoComplete="off" placeholder="birthdate" value={driver.birthdate} onChange={handleChange} name="birthdate" className='input-form input-da
+                        te input-header' type="date" />
+
+                        <label className='label-name' >Nacionality</label>
+                        <input autoComplete="off" placeholder="nationality" value={driver.nationality} onChange={handleChange} name="nationality" className='input-form input-header' type="text" />
                     </div>
-                    <label className='label-name' >Escuderías</label>
+                    <label className='label-name' >Teams</label>
                     <select onChange={handleChange} name="teams" id="">
                         <option value='0'>Select a Team *</option>
                         {allTeams.map(team => <option value={team.name} >{team.name}</option>)}
                     </select>
-                    {!driver.teams
-                        ? <p>quien</p>
+                    {!driver.teams.length
+                        ? <label title={errors.teams} className='error-message'>⚠</label>
                         : <div id="teams-section">
                             {driver.teams.map((team) =>
                                 <button onClick={removeTeam} className='team-button input-header' name={team}>{team}</button>
@@ -168,18 +182,28 @@ export const Form = () => {
                 <div id="Form-image">
                     <div className='input-section' >
                         <label className='label-name' >Imagen</label>
-                        <input placeholder="image" value={driver.image} onChange={handleChange} name="image" className='input-form' type="url" />
+                        <input autoComplete="off" placeholder="image" value={driver.image} onChange={handleChange} name="image" className='input-form' type="url" />
                     </div>
                     <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
                 </div>
                 <div id="Form-description" className='input-section input-section-date' >
-                    <label contenteditable="true" className='label-name' >Descripción:</label>
+                    <div style={{ display: 'flex', justifyContent: 'center' }} >
+                        {!errors.description
+                            ? <label style={{ color: 'transparent' }}>⚠</label>
+                            : errors.description[0] === 'S'
+                                ? <label title={errors.description} className="alert-message">⚠</label>
+                                : <label title={errors.description} className='error-message'>⚠</label>}
+                        <label className='label-name' >Descripción:</label>
+                    </div>
                     <textarea value={driver.description} onChange={handleChange} placeholder="Description" name="description" id="Detail-textarea-description" className='input-form' cols="30" rows="10" />
                 </div>
             </section>
             <section>
                 {location === '/form'
-                    ? <button onClick={handleCreate} className="Effect-button" >Submit</button>
+                    ? <section>
+                        <button onClick={() => navigate('/home')} id="Detail-edit-button" className="Effect-button">CANCEL</button>
+                        <button onClick={handleCreate} className="Effect-button" >SUBMIT</button>
+                    </section>
                     : isNaN(+id)
                         ? <section>
                             <button onClick={() => navigate(`/drivers/${id}`)} id="Detail-edit-button" className="Effect-button">CANCEL</button>
