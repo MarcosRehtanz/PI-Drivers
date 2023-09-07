@@ -153,13 +153,18 @@ export const Form = () => {
                     <div className='input-section'>
                         {!errors.birthdate
                             ? <label style={{ color: 'transparent' }}>⚠</label>
-                            : errors.birthdate[0] === 'S'
+                            : errors.birthdate[0] === 'Y'
                                 ? <label title={errors.birthdate} className="alert-message">⚠</label>
                                 : <label title={errors.birthdate} className='error-message'>⚠</label>}
                         <label className='label-name' >DOB</label>
                         <input autoComplete="off" placeholder="birthdate" value={driver.birthdate} onChange={handleChange} name="birthdate" className='input-form input-da
                         te input-header' type="date" />
 
+                        {!errors.nationality
+                            ? <label style={{ color: 'transparent' }}>⚠</label>
+                            : errors.nationality[0] === 'S'
+                                ? <label title={errors.nationality} className="alert-message">⚠</label>
+                                : <label title={errors.nationality} className='error-message'>⚠</label>}
                         <label className='label-name' >Nacionality</label>
                         <input autoComplete="off" placeholder="nationality" value={driver.nationality} onChange={handleChange} name="nationality" className='input-form input-header' type="text" />
                     </div>
