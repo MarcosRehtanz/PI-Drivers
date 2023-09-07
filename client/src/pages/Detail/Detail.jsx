@@ -24,14 +24,17 @@ export const Detail = () => {
         }
     }
     const deleteDriver = async () => {
-        try {
-            const { data } = await axios.delete(`http://localhost:3001/drivers/${id}`)
-            dispatch(getAllDrivers());
-            alert( `${data[0].name} ha sido dado de baja` )
-            navigate('/home')
-        } catch (error) {
-            alert(error.message);
-        }
+        let retVal = confirm(`You're about to delete ${driver.name} ${driver.surname}\nAre you sure to continue?`);
+        if ( retVal ) {
+            try {
+                const { data } = await axios.delete(`http://localhost:3001/drivers/${id}`)
+                dispatch(getAllDrivers());
+                alert(`${data[0].name} ha sido dado de baja`)
+                navigate('/home')
+            } catch (error) {
+                alert(error.message);
+            }
+        } 
     }
 
     useEffect(() => {

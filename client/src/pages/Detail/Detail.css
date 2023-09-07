@@ -12,7 +12,8 @@
 }
 
 #section-container-header {
-    height: 100px;
+    min-height: 100px;
+    max-height: min-content;
     display: flex;
 
     background-color: var(--color-dark-second);
