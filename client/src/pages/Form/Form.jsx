@@ -146,8 +146,8 @@ export const Form = () => {
                                     ? <label title={errors.surname} className="alert-message">⚠</label>
                                     : <label title={errors.surname} className='error-message'>⚠</label>}
                             <label className='label-name' >Surname</label>
-                            <input autoComplete="off" placeholder="name" value={driver.name} onChange={handleChange} name="name" className='input-form input-header input-name' type="text" />
-                            <input autoComplete="off" placeholder="surname" value={driver.surname} onChange={handleChange} name="surname" className='input-form input-header input-surname' type="text" />
+                            <input title="Input Name" autoComplete="off" placeholder="name" value={driver.name} onChange={handleChange} name="name" className='input-form input-header input-name' type="text" />
+                            <input title="Input Surname" autoComplete="off" placeholder="surname" value={driver.surname} onChange={handleChange} name="surname" className='input-form input-header input-surname' type="text" />
                         </div>
                     </div>
                     <div className='input-section'>
@@ -157,7 +157,7 @@ export const Form = () => {
                                 ? <label title={errors.birthdate} className="alert-message">⚠</label>
                                 : <label title={errors.birthdate} className='error-message'>⚠</label>}
                         <label className='label-name' >DOB</label>
-                        <input autoComplete="off" placeholder="birthdate" value={driver.birthdate} onChange={handleChange} name="birthdate" className='input-form input-da
+                        <input title="Input DOB" role="textbox" autoComplete="off" placeholder="birthdate" value={driver.birthdate} onChange={handleChange} name="birthdate" className='input-form input-da
                         te input-header' type="date" />
 
                         {!errors.nationality
@@ -166,7 +166,7 @@ export const Form = () => {
                                 ? <label title={errors.nationality} className="alert-message">⚠</label>
                                 : <label title={errors.nationality} className='error-message'>⚠</label>}
                         <label className='label-name' >Nacionality</label>
-                        <input autoComplete="off" placeholder="nationality" value={driver.nationality} onChange={handleChange} name="nationality" className='input-form input-header' type="text" />
+                        <input title="Input Nationality" autoComplete="off" placeholder="nationality" value={driver.nationality} onChange={handleChange} name="nationality" className='input-form input-header' type="text" />
                     </div>
                     <label className='label-name' >Teams</label>
                     <select onChange={handleChange} name="teams" id="">
@@ -187,7 +187,7 @@ export const Form = () => {
                 <div id="Form-image">
                     <div className='input-section' >
                         <label className='label-name' >Imagen</label>
-                        <input autoComplete="off" placeholder="image" value={driver.image} onChange={handleChange} name="image" className='input-form' type="url" />
+                        <input title="Input Image" autoComplete="off" placeholder="image" value={driver.image} onChange={handleChange} name="image" className='input-form' type="url" />
                     </div>
                     <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
                 </div>
@@ -200,14 +200,14 @@ export const Form = () => {
                                 : <label title={errors.description} className='error-message'>⚠</label>}
                         <label className='label-name' >Descripción:</label>
                     </div>
-                    <textarea value={driver.description} onChange={handleChange} placeholder="Description" name="description" id="Detail-textarea-description" className='input-form' cols="30" rows="10" />
+                    <textarea title="Input Description" value={driver.description} onChange={handleChange} placeholder="Description" name="description" id="Detail-textarea-description" className='input-form' cols="30" rows="10" />
                 </div>
             </section>
             <section>
                 {location === '/form'
                     ? <section>
-                        <button onClick={() => navigate('/home')} id="Detail-edit-button" className="Effect-button">CANCEL</button>
-                        <button onClick={handleCreate} className="Effect-button" >SUBMIT</button>
+                        <button title="Button CANCEL" onClick={() => navigate('/home')} id="Detail-edit-button" className="Effect-button">CANCEL</button>
+                        <button title="Button SUBMIT" onClick={handleCreate} className="Effect-button" >SUBMIT</button>
                     </section>
                     : isNaN(+id)
                         ? <section>
