@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
 
     const newDriver = req.body
     if (!newDriver.name || !newDriver.surname || !newDriver.description || !newDriver.nationality || !newDriver.birthdate || !newDriver.teams){
-        return res.status(400).send('Información incompleta')
+        return res.status(400).send('Incomplete information')
     }
 
     

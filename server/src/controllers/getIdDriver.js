@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
             const { name, description, nationality, image, dob, teams } = (await axios.get(`http://localhost:5000/drivers/${id}`)).data
             
             const driver = {
+                id: +id,
                 name: name.forename,
                 surname: name.surname,
                 description: description,
