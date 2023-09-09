@@ -15,9 +15,6 @@ export const Nav = () => {
                 <SearchBar/>
 
                 <ul id="NavBar-contain">
-                    <Link to='/home' className="navigate-item">
-                        <li>Home</li>
-                    </Link>
                     <Link to='/form' className="navigate-item">
                         <li>Form</li>
                     </Link>

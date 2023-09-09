@@ -23,16 +23,16 @@ export const DriversCards = () => {
                 name={name}
                 surname={surname}
                 image={image ? image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'}
-                teams={teams ? teams.sort((a,b)=>a.id-b.id) : [teams]}
+                teams={teams ? teams.sort((a, b) => a.id - b.id) : [teams]}
             />
         })
     }
 
-    
+
     const handlePage = (page) => {
         setSelector(page)
     }
-    
+
     useEffect(() => {
         setDrivers(filterDrivers)
         setPages(Math.ceil(filterDrivers.length / 9))
@@ -44,11 +44,19 @@ export const DriversCards = () => {
             {error ? <label className='error-message'>{error}</label> : <br />}
 
             <section id='selector-container' >
-                {selector <= 1 ? <p></p> : <button onClick={() => handlePage(1)} >1</button>}
-                {selector <= 2 ? <p></p> : <button onClick={() => handlePage(selector - 1)} >◄</button>}
+                {selector <= 2
+                    ? <button disabled className='button-left enabled-button' onClick={() => handlePage(1)} >1</button>
+                    : <button className='button-left button-selector' onClick={() => handlePage(1)} >1</button>}
+                {selector <= 1
+                    ? <button disabled className='button-left enabled-button' onClick={() => handlePage(selector - 1)} >◄</button>
+                    : <button className='button-left button-selector' onClick={() => handlePage(selector - 1)} >◄</button>}
                 <span>{selector}</span>
-                {selector >= pages - 1 ? <p></p> : <button onClick={() => handlePage(selector + 1)} >►</button>}
-                {selector >= pages ? <p></p> : <button onClick={() => handlePage(pages)} >{pages}</button>}
+                {selector >= pages
+                    ? <button disabled className='button-right enabled-button' onClick={() => handlePage(selector + 1)} >►</button>
+                    : <button className='button-right button-selector' onClick={() => handlePage(selector + 1)} >►</button>}
+                {selector >= pages-1
+                    ? <button disabled className='button-right enabled-button' onClick={() => handlePage(pages)} >{pages}</button>
+                    : <button className='button-right button-selector' onClick={() => handlePage(pages)} >{pages}</button>}
             </section>
 
             <section id='cards-section' >

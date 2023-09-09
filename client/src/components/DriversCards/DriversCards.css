@@ -1,16 +1,48 @@
 #cards-section {
-    width: max-content;
+    width: 800px;
     margin: auto;
 
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 5px;
+    
 }
 
 #selector-container {
-    width: 120px;
+    width: 200px;
     margin: auto;
-
+    margin-bottom: 10px;
+    
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+.enabled-button,
+.button-selector {
+    width: 30px;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    transition: all 0.1s;
+}
+.button-selector:hover {
+    margin: 0;
+}
+.button-left {
+    border-width: 1px 1px 2px 2px ;
+    border-style: solid;
+    border-color: red;
+    transform: skewX(-15deg);
+}
+.button-right {
+    border-width: 1px 2px 2px 1px;
+    border-style: solid;
+    border-color: red;
+    transform: skewX(15deg);
+}
+
+@media (max-width: 1024px) {
+    #cards-section {
+        width: 530px;
+    }
 }
