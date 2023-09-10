@@ -16,7 +16,7 @@ export const Nav = () => {
 
                 <ul id="NavBar-contain">
                     <Link to='/form' className="navigate-item">
-                        <li>Form</li>
+                        <li id="Nav-add-driver">+ Enroll</li>
                     </Link>
                 </ul>
 

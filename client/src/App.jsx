@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
@@ -19,14 +19,10 @@ function App() {
 
   return (
     <>
+        <Nav />
       <Routes>
         <Route path='/' Component={Landing} />
-        <Route path='/home' element={
-          <>
-            <Nav />
-            <Home />
-          </>
-        } />
+        <Route path='/home' Component={Home} />
         <Route path='/form' Component={Form} >
         </Route>
         <Route path='/drivers/:id' Component={Detail} />

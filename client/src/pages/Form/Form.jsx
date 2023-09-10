@@ -127,9 +127,6 @@ export const Form = () => {
         <div id="Detail-container">
             <section id="form-section-container-header">
                 <div id="header-image">
-                    <Link to='/home'>
-                        <button id="header-button" />
-                    </Link>
                 </div>
                 <div id="header-title">
                     <div>

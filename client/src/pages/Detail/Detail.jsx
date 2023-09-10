@@ -25,16 +25,16 @@ export const Detail = () => {
     }
     const deleteDriver = async () => {
         let retVal = confirm(`You're about to delete ${driver.name} ${driver.surname}\nAre you sure to continue?`);
-        if ( retVal ) {
+        if (retVal) {
             try {
                 const { data } = await axios.delete(`http://localhost:3001/drivers/${id}`)
                 dispatch(getAllDrivers());
-                alert(`${data[0].name} ha sido dado de baja`)
+                alert(`${data[0].name} has been dismissed`)
                 navigate('/home')
             } catch (error) {
                 alert(error.message);
             }
-        } 
+        }
     }
 
     useEffect(() => {
@@ -47,7 +47,7 @@ export const Detail = () => {
             <section id="section-container-header">
                 <div id="header-image">
                     <Link to='/home'>
-                        <button id="header-button" />
+                        <button id="back-button" />
                     </Link>
                 </div>
                 <div id="header-title">

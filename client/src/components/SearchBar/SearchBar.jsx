@@ -13,7 +13,7 @@ export const SearchBar = () => {
         <div id="SearchBar-container">
 
             <input id="SearchBar-input" value={name} onChange={({target})=>setName(target.value)} type="text" name="name" />
-            <button id="SearchBar-button" onClick={()=>dispatch(getDriversForName(name))} >Buscar</button>
+            <button id="SearchBar-button" onClick={()=>dispatch(getDriversForName(name))} >Search</button>
 
         </div>
     )

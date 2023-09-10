@@ -20,23 +20,33 @@
 }
 
 #header-image {
-    width: 200px;
-    height: 100%;
-}
+    margin: auto;
 
-#header-button {
-    width: 80%;
-    height: 100%;
+    display: flex;
+    flex-direction: row;
 
     background-color: #00000000;
     background-image: url('/F1.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 100%;
-    transition: transform 0.5s 0s;
+    background-size: 90%;
 }
 
-#header-button:hover {
+#back-button {
+    width: 20px;   
+    height: 20px;
+    margin: 10px;
+
+    background-color: #00000000;
+    background-image: url('../../assets/flecha-circulo-izquierda.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    cursor: pointer;
+}
+
+#back-button:hover {
     transform: scale(1.05);
     cursor: pointer;
 }
