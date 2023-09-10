@@ -34,14 +34,31 @@
     grid-template-columns: max-content auto;
 }
 
+
 #origin label {
     margin-right: auto;
 }
 
-section select {
+#form-filter select {
     width: 100px;
+    color: var(--color-dark-first);
+    background-color: white;
+    transform: skew(-15deg);
 }
 
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: gray;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-first);
+    border-radius: 20px;
+    border: 2px solid gray;
+}
 /* 
 
 @media (max-width: 1024px) {

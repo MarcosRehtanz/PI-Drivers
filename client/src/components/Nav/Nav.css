@@ -1,12 +1,11 @@
 nav {
-
     position: sticky;
     top: 0px;
     z-index: 10;
 }
 
 #Nav-container {
-    padding: 15px;
+    padding: 15px 50px;
 
     display: flex;
     flex-direction: row;
@@ -16,10 +15,12 @@ nav {
 }
 
 #NavBar-contain {
-
+    width: 300px;
+    
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     display: flex;
     flex-direction: row;
-
+    justify-content: flex-end;
     column-gap: 1rem;
 
     list-style: none;
@@ -28,8 +29,7 @@ nav {
 #Nav-add-driver {
     width: 100px;
     height: 36px;
-
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
 
     background-image: url('../../assets/formula-1.png');
     background-size: contain;
@@ -39,7 +39,6 @@ nav {
 
 
 .navigate-item {
-
     color: white;
     text-decoration: none;
 

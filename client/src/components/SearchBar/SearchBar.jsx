@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { getDriversForName } from "../../redux/actions"
+import { getAllDrivers, getDriversForName } from "../../redux/actions"
 import { useState } from "react"
 import './SearchBar.css'
 
@@ -7,13 +7,22 @@ import './SearchBar.css'
 export const SearchBar = () => {
 
     const dispatch = useDispatch()
-    const [ name, setName ] = useState()
+    const [name, setName] = useState()
 
-    return(
+    const search = () => {
+        if (name) {
+            dispatch(getDriversForName(name))
+            setName('')
+        }
+    }
+    const keyDown = ({ key }) => {
+        if (key === 'Enter') search()
+    }
+
+    return (
         <div id="SearchBar-container">
-
-            <input id="SearchBar-input" value={name} onChange={({target})=>setName(target.value)} type="text" name="name" />
-            <button id="SearchBar-button" onClick={()=>dispatch(getDriversForName(name))} >Search</button>
+            <input id="SearchBar-input" value={name} onChange={({ target }) => setName(target.value)} autoComplete="off" type="text" name="name" onKeyDown={keyDown} />
+            <button id="SearchBar-button" onClick={search} >Search</button>
 
         </div>
     )
