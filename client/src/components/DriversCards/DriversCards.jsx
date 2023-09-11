@@ -4,6 +4,8 @@ import { DriverCard } from '../DriverCard/DriverCard'
 import { useSelector } from 'react-redux'
 
 import './DriversCards.css'
+import image from '../../assets/Formula-One.png'
+import { ErrorSection } from '../ErrorSection/ErrorSection'
 
 export const DriversCards = () => {
 
@@ -54,13 +56,19 @@ export const DriversCards = () => {
                 {selector >= pages
                     ? <button disabled className='button-right enabled-button' onClick={() => handlePage(selector + 1)} >►</button>
                     : <button className='button-right button-selector' onClick={() => handlePage(selector + 1)} >►</button>}
-                {selector >= pages-1
+                {selector >= pages - 1
                     ? <button disabled className='button-right enabled-button' onClick={() => handlePage(pages)} >{pages}</button>
                     : <button className='button-right button-selector' onClick={() => handlePage(pages)} >{pages}</button>}
             </section>
 
             <section id='cards-section' >
-                {renderCards()}
+                {drivers.length
+                    ? renderCards()
+                    : <ErrorSection
+                    message={`Don't matched results`}
+                    url={image}
+                    />
+            }
             </section>
 
         </div>

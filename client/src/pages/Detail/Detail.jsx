@@ -46,9 +46,6 @@ export const Detail = () => {
         <div id="Detail-container">
             <section id="section-container-header">
                 <div id="header-image">
-                    <Link to='/home'>
-                        <button id="back-button" />
-                    </Link>
                 </div>
                 <div id="header-title">
                     <h1>{driver.name} {driver.surname}</h1>

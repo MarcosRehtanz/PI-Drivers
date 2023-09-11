@@ -1,5 +1,7 @@
 #SearchBar-container {
     height: 30px;
+    margin-left: 50px;
+    margin-right: auto;
     border-width: 0 5px 5px 0;
     border-color: red;
     border-style: solid;

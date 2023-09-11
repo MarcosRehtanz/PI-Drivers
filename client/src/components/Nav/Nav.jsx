@@ -9,11 +9,17 @@ export const Nav = () => {
 
         <nav>
             <div id="Nav-container" >
-                <Link to='/' id="">
-                    <img src="/F1.svg" alt="logo" />
+                <Link to='/home' >
+                    {location === '/home' || location === '/'
+                        ? <img id="image-logo" src="/F1.svg" alt="logo" />
+                        : <button id="back-button">HOME</button>
+                    }
                 </Link>
 
-                <SearchBar />
+                {location === '/home'
+                    ? <SearchBar />
+                    : <h1 id="name-location">{location.split('/')[1].toUpperCase()}</h1>
+                }
 
                 <ul id="NavBar-contain">
                     {location === '/home'
@@ -21,7 +27,9 @@ export const Nav = () => {
                             <li id="Nav-add-driver">+ Enroll</li>
                         </Link>
                     }
-                    <li className="navigate-item">Exit</li>
+                    <Link to='/' className="navigate-item">
+                        <li >Exit</li>
+                    </Link>
                 </ul>
 
             </div>

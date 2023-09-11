@@ -32,25 +32,6 @@
     background-size: 90%;
 }
 
-#back-button {
-    width: 20px;   
-    height: 20px;
-    margin: 10px;
-
-    background-color: #00000000;
-    background-image: url('../../assets/flecha-circulo-izquierda.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    cursor: pointer;
-}
-
-#back-button:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
 #header-title {
     width: 100%;
     border-bottom-left-radius: 10px;
