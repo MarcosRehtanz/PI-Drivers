@@ -1,7 +1,7 @@
 #Detail-container {
     max-width: 75%;
     height: max-content;
-
+    margin-top: -5%;
     padding: 0 20px 20px 0;
 
     color: var(--color-dark-second);

@@ -27,9 +27,11 @@ export const Nav = () => {
                             <li id="Nav-add-driver">+ Enroll</li>
                         </Link>
                     }
-                    <Link to='/' className="navigate-item">
-                        <li >Exit</li>
-                    </Link>
+                    {location !== '/'
+                        && <Link to='/' className="navigate-item">
+                            <li >Exit</li>
+                        </Link>
+                    }
                 </ul>
 
             </div>

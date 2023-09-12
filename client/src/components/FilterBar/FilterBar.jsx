@@ -32,9 +32,9 @@ export const FilterBar = () => {
                     <input checked={formFilter.origin === 'ALL'} type="radio" id="input-radio-ALL" className="radio-driver" name="origin" value="ALL" />
                     <label for="input-radio-ALL">All Drivers</label>
                     <input checked={formFilter.origin === 'API'} type="radio" id="input-radio-API" className="radio-driver" name="origin" value="API" />
-                    <label for="input-radio-API">Default</label>
+                    <label for="input-radio-API">Clasics</label>
                     <input checked={formFilter.origin === 'DB'} type="radio" id="input-radio-DB" className="radio-driver" name="origin" value="DB" />
-                    <label for="input-radio-DB">Your driver</label>
+                    <label for="input-radio-DB">New drivers</label>
                 </section>
 
                 <section id="teams" >

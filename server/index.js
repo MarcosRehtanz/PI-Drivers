@@ -1,7 +1,8 @@
 const axios = require("axios");
 const server = require("./src/server");
 const { conn, Team } = require('./src/db.js');
-const PORT = 3001;
+require('dotenv').config()
+const PORT = process.env.PORT || 3001;
 
 conn.sync({ force: false }).then(() => {
   server.listen(PORT, async () => {
