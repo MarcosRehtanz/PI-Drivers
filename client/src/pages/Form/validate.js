@@ -3,13 +3,17 @@ export const validate = ({ name, surname, nationality, birthdate, description, t
     const error = {}
 
     if (!name || !name.trim()) error.name = 'Cannot be empty'
-    else if (/[^\w\s]/.test(name)) error.name = 'Symbols are not allowed'
+    else if(!/^.{3,}$/.test(name.trim())) error.name = 'Name so short'
+    else if(/^.{12,}$/.test(name.trim())) error.name = 'Name so long'
+    else if (!/^[A-Za-z]+$/.test(name)) error.name = 'Symbols are not allowed'
 
     if (!surname || !surname.trim()) error.surname = 'Cannot be empty'
-    else if (/[^\w\s]/.test(surname)) error.surname = 'Symbols are not allowed'
+    else if(!/^.{3,}$/.test(surname.trim())) error.surname = 'Surname so short'
+    else if(/^.{12,}$/.test(surname.trim())) error.surname = 'Surname so long'
+    else if (!/^[A-Za-z]+$/.test(surname)) error.surname = 'Symbols are not allowed'
 
     if (!nationality || !nationality.trim()) error.nationality = 'Cannot be empty'
-    else if (/[^\w\s]/.test(nationality)) error.nationality = 'Symbols are not allowed'
+    else if (!/^[A-Za-z]+$/.test(nationality)) error.nationality = 'Symbols are not allowed'
 
     const date1 = new Date(birthdate); // Primera fecha
     const date2 = new Date(); // Segunda fecha
@@ -19,6 +23,7 @@ export const validate = ({ name, surname, nationality, birthdate, description, t
 
     if (!birthdate) error.birthdate = 'Cannot be empty'
     else if (years < 18) error.birthdate = 'You must be of legal age';
+    else if (years > 100) error.birthdate = 'Are you alive?';
 
     if (!description || !description.trim()) error.description = 'Cannot be empty'
 
