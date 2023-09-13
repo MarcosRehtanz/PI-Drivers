@@ -32,6 +32,7 @@
 #origin {
     display: grid;
     grid-template-columns: max-content auto;
+    font-size: small;
 }
 
 
