@@ -1,9 +1,9 @@
 const axios = require('axios')
+const { Op } = require('sequelize')
 const { Driver, Team } = require('../db')
 
 module.exports = async (req, res) => {
 
-    //FIXME - no llega correctamente la query
     try {
         const { name } = req.query
         console.log(name);
@@ -21,7 +21,11 @@ module.exports = async (req, res) => {
             }
         })
         const driversDB = await Driver.findAll({
-            where: { name },
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            },
             include: {
                 model: Team,
                 as: 'teams',
