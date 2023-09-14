@@ -9,15 +9,18 @@ export const Landing = () => {
     const _phrases = [
         {
             phrase: '“You should always strive to be the best, but never believe you are the best”',
-            by: 'Juan Manuel Fangio'
+            by: 'Juan Manuel Fangio',
+            flag: 'https://flagcdn.com/w320/ar.png',
         },
         {
             phrase: `“When I'm 50, I'll look at the trophies I've won, but they're useless to me today. I want to win again”`,
-            by: 'Fernando Alonso'
+            by: 'Fernando Alonso',
+            flag: 'https://flagcdn.com/w320/es.png',
         },
         {
             phrase: '“The important thing is to win. Always. That idea that the important thing is to compete is pure demagogy”',
-            by: 'Ayrton Senna'
+            by: 'Ayrton Senna',
+            flag: 'https://flagcdn.com/w320/br.png',
         }
     ]
 
@@ -42,7 +45,7 @@ export const Landing = () => {
 
                     <h1 id='eslogan'>{phrase.phrase}</h1>
                     <div id='author-section'>
-                        <h3 id='author' >{phrase.by}</h3> <img id='flag' src="https://flagcdn.com/w320/ar.png" alt="flag" />
+                        <h3 id='author' >{phrase.by}</h3> <img id='flag' src={phrase.flag} alt="flag" />
                     </div>
 
                     <Link to='/home'>

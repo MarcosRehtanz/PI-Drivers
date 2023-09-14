@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { setFilter } from "../../redux/actions"
+import { getAllDrivers, setFilter } from "../../redux/actions"
 import { useEffect, useState } from "react"
 import './FilterBar.css'
 
@@ -62,6 +62,8 @@ export const FilterBar = () => {
                 </section>
                 <br />
                 <button className="Effect-button" onClick={() => dispatch(setFilter(formFilter))} >Filter</button>
+                <hr />
+                <button className="Effect-button" onClick={()=>dispatch(getAllDrivers())} style={{marginTop:'0px'}}>All drivers</button>
             </form>
 
         </div>

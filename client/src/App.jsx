@@ -23,8 +23,7 @@ function App() {
       <Routes>
         <Route path='/' Component={Landing} />
         <Route path='/home' Component={Home} />
-        <Route path='/form' Component={Form} >
-        </Route>
+        <Route path='/form' Component={Form} />
         <Route path='/drivers/:id' Component={Detail} />
         <Route path='/drivers/edit/:id' Component={Form} />
       </Routes>

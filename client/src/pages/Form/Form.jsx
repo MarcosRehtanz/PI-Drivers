@@ -83,12 +83,12 @@ export const Form = () => {
     }
 
     const handleUpDate = async () => {
-        if (Object.keys(errors).length > 0)  return alert('Completa todos los campos para continuar')
+        if (Object.keys(errors).length > 0) return alert('Completa todos los campos para continuar')
         else {
             console.log(driver);
             try {
-                const { data } = await axios.put(`http://localhost:3001/drivers`, driver)
-                alert(data)
+                await axios.put(`http://localhost:3001/drivers`, driver)
+                alert('This driver was updated successfully')
                 navigate(`/drivers/${id}`)
             } catch (error) {
                 alert(error.message);
@@ -96,16 +96,16 @@ export const Form = () => {
         }
     }
     const handleCreate = async () => {
-        if (Object.keys(errors).length > 0)  return alert('Completa todos los campos para continuar')
-        
+        if (Object.keys(errors).length > 0) return alert('❗ Complete all fields for registration')
+
         try {
             console.log(driver);
-            const { data } = await axios.post('http://localhost:3001/drivers', driver)
-            alert('Suscripción exitosa')
-            console.log(data);
+            await axios.post('http://localhost:3001/drivers', driver)
+            alert('Successfull registration')
             navigate('/home')
         } catch (err) {
-            alert(err.message)
+            if (err.response.status === 409) alert('⚠ This driver has already been registered')
+            else alert(err.message)
         }
     }
 
@@ -184,7 +184,7 @@ export const Form = () => {
                 <div id="Form-image">
                     <div className='input-section' >
                         <label className='label-name' >Imagen</label>
-                        <input title="Input Image" autoComplete="off" placeholder="image" value={driver.image} onChange={handleChange} name="image" className='input-form' type="url" />
+                        <input title="Input Image" autoComplete="off" placeholder="URL" value={driver.image} onChange={handleChange} name="image" className='input-form input-header' type="url" />
                     </div>
                     <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
                 </div>
