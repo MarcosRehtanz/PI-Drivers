@@ -17,7 +17,7 @@ export const DriversCards = () => {
 
     const renderCards = () => {
         const arr = drivers.slice(selector * 9 - 9, selector * 9);
-        return arr.map(({ id, name, surname, image, teams }) => {
+        return arr.map(({ id, name, surname, image, teams, birthdate }) => {
 
             return <DriverCard
                 key={id}
@@ -26,6 +26,7 @@ export const DriversCards = () => {
                 surname={surname}
                 image={image ? image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'}
                 teams={teams ? teams.sort((a, b) => a.id - b.id) : [teams]}
+                birthdate={birthdate}
             />
         })
     }
