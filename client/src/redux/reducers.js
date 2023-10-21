@@ -19,8 +19,8 @@ export const reducers = (state = initialState, action) => {
         case 'GET_ALL_DRIVERS':
             return {
                 ...state,
-                allDrivers: action.payload,
-                filterDrivers: action.payload,
+                allDrivers: action.payload, // Ford [ 4 ]
+                filterDrivers: action.payload, // [ todos, ... ]
                 filters: [],
             }
         case 'ADD_DRIVER':
@@ -32,7 +32,9 @@ export const reducers = (state = initialState, action) => {
             }
         case 'FILTER':
             const { origin, teams, order } = action.payload
+
             let filter = [...state.allDrivers].filter(driver => {
+
                 //action.payload);
                 return (
                     (origin === 'ALL'
@@ -41,17 +43,20 @@ export const reducers = (state = initialState, action) => {
                             ? !isNaN(+driver.id)
                             : isNaN(+driver.id))
                     &&
+                    
                     (teams !== '*'
                         ? driver.teams.some(team => team.name === teams)
                         : true)
                 )
             })
+
             const SortArray = (x, y) => {
                 const _name = order[0]==='n'?'name':'birthdate'
                 return (order[1] === 'a')
                     ? x[_name].localeCompare(y[_name])
                     : y[_name].localeCompare(x[_name])
             }
+
             return {
                 ...state,
                 filterDrivers: [...filter].sort(SortArray)

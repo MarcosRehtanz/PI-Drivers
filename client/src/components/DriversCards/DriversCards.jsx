@@ -11,12 +11,22 @@ export const DriversCards = () => {
 
     const [pages, setPages] = useState(0)
     const [selector, setSelector] = useState(1)
+
+    // corredores para el paginado 
     const [drivers, setDrivers] = useState([])
     const [error, setError] = useState('')
+
+    // todos los drivers filtrados
     const filterDrivers = useSelector(state => state.filterDrivers)
 
+    axios.get("http//lohos:301").then( ({ data }) => setDrivers(data) )
+
+    // Renderizado de las cartas
     const renderCards = () => {
+        
+                                        // 0      -  9
         const arr = drivers.slice(selector * 9 - 9, selector * 9);
+
         return arr.map(({ id, name, surname, image, teams, birthdate }) => {
 
             return <DriverCard
@@ -38,7 +48,7 @@ export const DriversCards = () => {
 
     useEffect(() => {
         setDrivers(filterDrivers)
-        setPages(Math.ceil(filterDrivers.length / 9))
+        setPages( Math.ceil( filterDrivers.length / 9 ))
         setSelector(1)
     }, [filterDrivers])
 

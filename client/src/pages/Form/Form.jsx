@@ -23,6 +23,24 @@ export const Form = () => {
         oldTeams: [],
     })
 
+    const changeUpload = async (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64String = reader.result.split(',')[1];
+                setDriver(oldDriver => ({
+                    ...oldDriver,
+                    image: `data:image/jpeg;base64,${base64String}`
+                }
+                ));
+            };
+            reader.readAsDataURL(file);
+
+        }
+    }
+
     const getDriver = async () => {
         try {
             const { data } = await axios.get(`http://localhost:3001/drivers/${id}`)
@@ -184,7 +202,7 @@ export const Form = () => {
                 <div id="Form-image">
                     <div className='input-section' >
                         <label className='label-name' >Imagen</label>
-                        <input title="Input Image" autoComplete="off" placeholder="URL" value={driver.image} onChange={handleChange} name="image" className='input-form input-header' type="url" />
+                        <input title="Input Image" type="file" accept="image/*" autoComplete="off" placeholder="URL" onChange={changeUpload} name="image" className='input-form input-header' />
                     </div>
                     <img id="Detail-image" src={driver.image ? driver.image : 'https://cdn.pixabay.com/photo/2013/07/12/15/36/motorsports-150157_960_720.png'} alt={driver.name} />
                 </div>
