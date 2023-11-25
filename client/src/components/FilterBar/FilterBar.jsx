@@ -19,16 +19,23 @@ export const FilterBar = () => {
             [target.name]: target.value
         }))
     }
+    const cleanFilter = () => {
+        setFormFilter({
+            origin: 'ALL',
+            teams: '*',
+            order: 'na',
+        })
+    }
 
     useEffect(() => {
-        //dispatch(setFilter(formFilter))
-    }, [])
+        dispatch(setFilter(formFilter))
+    }, [formFilter])
 
     return (
         <div id="FilterBar-container">
 
             <form id="form-filter" onSubmit={e => e.preventDefault()}>
-                <section onChange={handlerOrigin} id='origin' >
+                <section onChange={handlerOrigin} value={formFilter.origin} id='origin' >
                     <input checked={formFilter.origin === 'ALL'} type="radio" id="input-radio-ALL" className="radio-driver" name="origin" value="ALL" />
                     <label for="input-radio-ALL">All Drivers</label>
                     <input checked={formFilter.origin === 'API'} type="radio" id="input-radio-API" className="radio-driver" name="origin" value="API" />
@@ -37,9 +44,9 @@ export const FilterBar = () => {
                     <label for="input-radio-DB">New drivers</label>
                 </section>
 
-                <section id="teams" >
+                <section value={formFilter.teams} id="teams" >
                     {allTeams
-                        ? <select onChange={e => handlerOrigin(e)} name="teams" >
+                        ? <select onChange={e => handlerOrigin(e)} value={formFilter.teams} name="teams" >
                             <option value='*' >All teams</option>
                             {allTeams.map((team, index) => {
                                 return <option key={index} value={team.name} >{team.name}</option>
@@ -49,7 +56,7 @@ export const FilterBar = () => {
                 </section>
 
                 <section id="order" >
-                    <select onChange={(e) => handlerOrigin(e)} name="order">
+                    <select onChange={(e) => handlerOrigin(e)} value={formFilter.order} name="order">
                         <optgroup label="Name">
                             <option value="na">a - z</option>
                             <option value="nd">z - a</option>
@@ -61,9 +68,9 @@ export const FilterBar = () => {
                     </select>
                 </section>
                 <br />
-                <button className="Effect-button" onClick={() => dispatch(setFilter(formFilter))} >Filter</button>
-                <hr />
-                <button className="Effect-button" onClick={()=>dispatch(getAllDrivers())} style={{marginTop:'0px'}}>All drivers</button>
+                {/* <button className="Effect-button" onClick={() => dispatch(setFilter(formFilter))} >Filter</button>
+                <hr /> */}
+                <button className="Effect-button" onClick={cleanFilter} style={{marginTop:'0px'}}>Clean Filter</button>
             </form>
 
         </div>
