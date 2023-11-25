@@ -43,7 +43,7 @@ export const Form = () => {
 
     const getDriver = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/drivers/${id}`)
+            const { data } = await axios.get(`${import.meta.env.VITE_SERVER}/drivers/${id}`)
             console.log(await {
                 ...data,
                 teams: data.teams.map((team) => team.name).join(', '),
@@ -105,7 +105,7 @@ export const Form = () => {
         else {
             console.log(driver);
             try {
-                await axios.put(`http://localhost:3001/drivers`, driver)
+                await axios.put(`${import.meta.env.VITE_SERVER}/drivers`, driver)
                 alert('This driver was updated successfully')
                 navigate(`/drivers/${id}`)
             } catch (error) {
@@ -118,7 +118,7 @@ export const Form = () => {
 
         try {
             console.log(driver);
-            await axios.post('http://localhost:3001/drivers', driver)
+            await axios.post('${import.meta.env.VITE_SERVER}/drivers', driver)
             alert('Successfull registration')
             navigate('/home')
         } catch (err) {
